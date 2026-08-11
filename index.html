@@ -98,9 +98,15 @@
   <!-- FLOATING BOTTOM PLAYER BAR -->
   <div class="floating-player-bar" role="region" aria-label="Audio Player Controls">
     
-    <!-- Track Info & Thumbnail -->
+    <!-- Track Info & Revolving Song Progress Ring Thumbnail -->
     <div class="player-track-info">
-      <img id="playerThumb" class="player-thumb" src="/assets/poster-highway-night.jpg" alt="Track Album Art - Tempu Wala Radio" />
+      <div class="player-thumb-wrapper" title="Track Elapsed Progress Ring">
+        <svg class="progress-ring-svg" width="54" height="54" viewBox="0 0 54 54">
+          <circle class="progress-ring-bg" cx="27" cy="27" r="23" />
+          <circle id="progressRingCircle" class="progress-ring-fill" cx="27" cy="27" r="23" />
+        </svg>
+        <img id="playerThumb" class="player-thumb" src="/assets/poster-highway-night.jpg" alt="Track Album Art - Tempu Wala Radio" />
+      </div>
       <div class="track-text">
         <span id="trackTitle" class="track-title">Katta Bass Phonk</span>
         <span id="trackArtist" class="track-artist">Tempu Beats × Phonk</span>

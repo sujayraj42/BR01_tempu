@@ -271,7 +271,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 /* -------------------------------------------------------------
-   FLOATING BOTTOM PLAYER BAR
+   FLOATING BOTTOM PLAYER BAR & REVOLVING SONG PROGRESS RING
    ------------------------------------------------------------- */
 .floating-player-bar {
   position: fixed;
@@ -301,7 +301,45 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   display: flex;
   align-items: center;
   gap: 0.85rem;
-  min-width: 170px;
+  min-width: 180px;
+}
+
+/* REVOLVING SONG PROGRESS RING AROUND THUMBNAIL */
+.player-thumb-wrapper {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.progress-ring-svg {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 54px;
+  height: 54px;
+  transform: rotate(-90deg); /* Start progress ring from top center */
+  pointer-events: none;
+}
+
+.progress-ring-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.15);
+  stroke-width: 3.5;
+}
+
+.progress-ring-fill {
+  fill: none;
+  stroke: var(--color-hazard-yellow);
+  stroke-width: 3.5;
+  stroke-dasharray: 144.51; /* 2 * PI * 23 */
+  stroke-dashoffset: 144.51;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.3s linear;
+  filter: drop-shadow(0 0 6px var(--color-hazard-yellow));
 }
 
 .player-thumb {
@@ -312,7 +350,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   border: 2px solid var(--color-hazard-yellow);
   box-shadow: 0 0 10px rgba(255, 200, 0, 0.4);
   background: #000;
-  flex-shrink: 0;
+  z-index: 1;
 }
 
 .track-text {
