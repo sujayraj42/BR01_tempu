@@ -3,11 +3,11 @@
 // -------------------------------------------------------------
 
 const POSTER_LIST = [
-  '/src/assets/poster-highway-night.jpg',
-  '/src/assets/poster-dhaba-break.jpg',
-  '/src/assets/poster-overloaded-rush.jpg',
-  '/src/assets/poster-monsoon-phonk.jpg',
-  '/src/assets/poster-mela-crowd.jpg'
+  '/assets/poster-highway-night.jpg',
+  '/assets/poster-dhaba-break.jpg',
+  '/assets/poster-overloaded-rush.jpg',
+  '/assets/poster-monsoon-phonk.jpg',
+  '/assets/poster-mela-crowd.jpg'
 ];
 
 const SCENE_NAMES = [
