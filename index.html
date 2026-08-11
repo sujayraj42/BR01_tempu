@@ -1,21 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TEMPU WALA | टेम्पू वाला • Hard Phonk on Wheels</title>
-  <meta name="description" content="Hard Bhojpuri Phonk internet radio micro-site inspired by Indian highway tempo & truck culture. Buri Nazar Wale Tera Phonk Kala!">
-  
+  <title>TEMPU WALA | टेम्पू वाला • Hard Bhojpuri Phonk Radio</title>
+  <meta name="description" content="Tempu Wala (टेम्पू वाला) — Hard Bhojpuri Phonk & Desi Drift Radio. Inspired by Indian highway tempo & truck culture. Listen to hard bass Bhojpuri phonk music 24/7 online. Buri Nazar Wale Tera Phonk Kala!">
+  <meta name="keywords" content="Bhojpuri Phonk, Tempu Wala, टेम्पू वाला, Hard Phonk, Desi Phonk, Indian Truck Art, Bhojpuri Radio, Bihar Phonk Beats, Highway Dhaba Phonk, Desi Drift Phonk, Katta Bass">
+  <meta name="author" content="Tempu Wala Radio">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://tempu-wala.vercel.app/">
+
+  <!-- Google Site Verification -->
+  <meta name="google-site-verification" content="Eh4xhceo_dAvFd6_X_Dmdne78NrmHEVh3s66vj99Tt0" />
+
   <!-- OpenGraph Meta Tags -->
-  <meta property="og:title" content="TEMPU WALA | टेम्पू वाला • Hard Phonk on Wheels">
+  <meta property="og:site_name" content="TEMPU WALA Radio">
+  <meta property="og:title" content="TEMPU WALA | टेम्पू वाला • Hard Bhojpuri Phonk Radio">
   <meta property="og:description" content="Hard Bhojpuri Phonk internet radio micro-site inspired by Indian highway tempo & truck culture. Horn OK Please!">
-  <meta property="og:image" content="/src/assets/poster-highway-night.jpg">
-  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://tempu-wala.vercel.app/src/assets/poster-highway-night.jpg">
+  <meta property="og:url" content="https://tempu-wala.vercel.app/">
+  <meta property="og:type" content="music.playlist">
+  <meta property="og:locale" content="hi_IN">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="TEMPU WALA | टेम्पू वाला • Hard Bhojpuri Phonk Radio">
+  <meta name="twitter:description" content="Hard Bhojpuri Phonk internet radio micro-site inspired by Indian highway tempo & truck culture. Buri Nazar Wale Tera Phonk Kala!">
+  <meta name="twitter:image" content="https://tempu-wala.vercel.app/src/assets/poster-highway-night.jpg">
 
   <!-- Favicon & PWA Manifest -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#FFC800">
+
+  <!-- JSON-LD Structured Data Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "RadioStation",
+    "name": "Tempu Wala Radio",
+    "alternateName": "टेम्पू वाला",
+    "url": "https://tempu-wala.vercel.app/",
+    "logo": "https://tempu-wala.vercel.app/favicon.svg",
+    "image": "https://tempu-wala.vercel.app/src/assets/poster-highway-night.jpg",
+    "description": "Hard Bhojpuri Phonk internet radio micro-site inspired by Indian highway tempo & truck culture.",
+    "genre": ["Bhojpuri Phonk", "Hard Bass", "Indian Hip Hop", "Desi Drift Phonk"],
+    "inLanguage": ["hi", "bho", "en"]
+  }
+  </script>
 
   <!-- Google Fonts: Yatra One, Teko, Bungee, Space Grotesk & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,8 +61,8 @@
 
   <!-- FULL-BLEED ILLUSTRATED BACKGROUND HERO -->
   <div class="bg-hero-container" aria-hidden="true">
-    <img id="bgHeroImg1" class="bg-hero-img active" src="/src/assets/poster-highway-night.jpg" alt="Illustrated Tempo Scene" />
-    <img id="bgHeroImg2" class="bg-hero-img" src="/src/assets/poster-dhaba-break.jpg" alt="Illustrated Tempo Scene Alt" />
+    <img id="bgHeroImg1" class="bg-hero-img active" src="/src/assets/poster-highway-night.jpg" alt="Illustrated Tempo Scene - Tempu Wala Bhojpuri Phonk Radio" />
+    <img id="bgHeroImg2" class="bg-hero-img" src="/src/assets/poster-dhaba-break.jpg" alt="Illustrated Dhaba Scene - Tempu Wala Bhojpuri Phonk Radio" />
     <div class="bg-overlay-shade"></div>
   </div>
 
@@ -68,7 +100,7 @@
     
     <!-- Track Info & Thumbnail -->
     <div class="player-track-info">
-      <img id="playerThumb" class="player-thumb" src="/src/assets/poster-highway-night.jpg" alt="Track Album Art" />
+      <img id="playerThumb" class="player-thumb" src="/src/assets/poster-highway-night.jpg" alt="Track Album Art - Tempu Wala Radio" />
       <div class="track-text">
         <span id="trackTitle" class="track-title">Katta Bass Phonk</span>
         <span id="trackArtist" class="track-artist">Tempu Beats × Phonk</span>
@@ -111,17 +143,17 @@
   </div>
 
   <!-- CONTACT LINE & KEYBOARD SHORTCUTS BADGE BELOW PLAYER BAR -->
-  <div class="contact-line">
+  <footer class="contact-line" role="contentinfo">
     <span>contact: <a href="mailto:hello@tempuwala.radio">hello@tempuwala.radio</a></span>
     <span>•</span>
     <span id="kbBadge" class="kb-badge" title="Keyboard Shortcuts">⌨️ Shortcuts [?]</span>
-  </div>
+  </footer>
 
   <!-- KEYBOARD SHORTCUTS MODAL DRAWER -->
   <div id="kbModal" class="kb-modal" role="dialog" aria-label="Keyboard Shortcuts">
     <div class="kb-modal-header">
       <span>⌨️ KEYBOARD SHORTCUTS</span>
-      <button id="kbModalClose" style="background:none; border:none; color:var(--color-hazard-yellow); cursor:pointer; font-size:1.2rem;">✕</button>
+      <button id="kbModalClose" style="background:none; border:none; color:var(--color-hazard-yellow); cursor:pointer; font-size:1.2rem;" aria-label="Close Shortcuts Modal">✕</button>
     </div>
     <div class="kb-grid">
       <div class="kb-item"><span class="kb-key">Space / K</span> <span>Play / Pause</span></div>

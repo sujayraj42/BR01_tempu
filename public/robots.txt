@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tempu-wala.vercel.app/sitemap.xml
