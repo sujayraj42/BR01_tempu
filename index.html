@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEMPU WALA | टेम्पू वाला • Hard Phonk on Wheels</title>
+  <meta name="description" content="Hard Bhojpuri Phonk internet radio micro-site inspired by Indian highway tempo & truck culture. Buri Nazar Wale Tera Phonk Kala!">
+  
+  <!-- OpenGraph Meta Tags -->
+  <meta property="og:title" content="TEMPU WALA | टेम्पू वाला • Hard Phonk on Wheels">
+  <meta property="og:description" content="Hard Bhojpuri Phonk internet radio micro-site inspired by Indian highway tempo & truck culture. Horn OK Please!">
+  <meta property="og:image" content="/src/assets/poster-highway-night.jpg">
+  <meta property="og:type" content="website">
+
+  <!-- Favicon & PWA Manifest -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#FFC800">
+
+  <!-- Google Fonts: Yatra One, Teko, Bungee, Space Grotesk & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Bungee&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;600;700&family=Teko:wght@700&family=Yatra+One&display=swap" rel="stylesheet">
+
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="/src/styles/main.css">
+</head>
+<body>
+
+  <!-- FULL-BLEED ILLUSTRATED BACKGROUND HERO -->
+  <div class="bg-hero-container" aria-hidden="true">
+    <img id="bgHeroImg1" class="bg-hero-img active" src="/src/assets/poster-highway-night.jpg" alt="Illustrated Tempo Scene" />
+    <img id="bgHeroImg2" class="bg-hero-img" src="/src/assets/poster-dhaba-break.jpg" alt="Illustrated Tempo Scene Alt" />
+    <div class="bg-overlay-shade"></div>
+  </div>
+
+  <!-- TOP BAR (TRANSPARENT OVERLAY) -->
+  <header class="top-bar" role="banner">
+    <!-- Top-Left: Real-time Live Clock -->
+    <div id="liveClock" class="live-clock" title="Current Time">5:10 PM</div>
+
+    <!-- Top-Center: Minimal Live Status Indicator -->
+    <div class="live-status-pill" title="Live Listeners Online" aria-live="polite">
+      <span class="live-dot" aria-hidden="true"></span>
+      <span id="sawaariCount">1,428 SAWAARI ONLINE</span>
+    </div>
+
+    <!-- Top-Right: Katta Bass Preset, Spotify & Nav Buttons -->
+    <nav class="top-nav-links" aria-label="Main Navigation">
+      <button id="btnBassPreset" class="nav-pill-btn btn-bass-preset" aria-label="Toggle Equalizer Preset" title="Cycle Bass Preset (E)">⚡ BASS: OVERDRIVE</button>
+      <button id="btnSceneCycle" class="nav-pill-btn" aria-label="Cycle Background Scene Poster" title="Switch Hero Scene">🖼 SCENES</button>
+      <a href="https://open.spotify.com/playlist/0y6yspZCEbwnNyUgNDyf0V" target="_blank" rel="noopener noreferrer" class="nav-pill-btn btn-spotify-pill" aria-label="Open in Spotify">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.48-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141 C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.3 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.18-.1.2-1.2-.42-.18-.6.42-1.2.6-1.2 4.2-1.26 11.28-1.02 15.72 1.62.54.3.72 1.02.42 1.56-.3.42-1.02.6-1.56.3z"/></svg>
+        Spotify
+      </a>
+    </nav>
+  </header>
+
+  <!-- AUTHENTIC BIHARI TEMPU SLOGAN MARQUEE TICKER BAR -->
+  <div class="slogan-ticker-wrapper" aria-label="Bihari Tempu Highway Slogans">
+    <div class="slogan-ticker-track">
+      <span class="slogan-ticker-item">🛺 "हंस मत पगले प्यार हो जाएगा"</span>
+      <span class="slogan-ticker-item">🚩 "देखे में छोट, पर चोट बड़े मारब"</span>
+      <span class="slogan-ticker-item">🔥 "बुरा मत देख, बुरा मत बोल, सीधा बाईपास डोल"</span>
+      <span class="slogan-ticker-item">⚡ "हम जियेंगे शान से, जलने वाले जलेंगे जान से"</span>
+      <span class="slogan-ticker-item">😄 "जिगर है तो पास आ, वरना दूर से सलाम कर"</span>
+      <span class="slogan-ticker-item">🌙 "दम है तो पार कर, वरना बर्दाश्त कर"</span>
+      <span class="slogan-ticker-item">💎 "लटक मत बेटा, जान चली जाएगी"</span>
+      <span class="slogan-ticker-item">🛺 "दूरी बनाए रखें, प्यार अपने आप हो जाएगा"</span>
+      <span class="slogan-ticker-item">🚩 "हॉर्न दबाके रास्ता पावें"</span>
+      <span class="slogan-ticker-item">🔥 "देख मगर प्यार से"</span>
+    </div>
+  </div>
+
+  <!-- HERO HEADLINE & PURE FLOATING QUOTE TYPOGRAPHY -->
+  <main class="hero-content">
+    <h1 class="devanagari-title">टेम्पू वाला</h1>
+    <p class="hero-subtitle">TEMPU WALA · HARD PHONK ON WHEELS</p>
+    <p id="heroQuoteText" class="hero-quote-text">"हंस मत पगले प्यार हो जाएगा"</p>
+  </main>
+
+  <!-- FLOATING BOTTOM PLAYER BAR -->
+  <div class="floating-player-bar" role="region" aria-label="Audio Player Controls">
+    
+    <!-- Track Info & Thumbnail -->
+    <div class="player-track-info">
+      <img id="playerThumb" class="player-thumb" src="/src/assets/poster-highway-night.jpg" alt="Track Album Art" />
+      <div class="track-text">
+        <span id="trackTitle" class="track-title">Katta Bass Phonk</span>
+        <span id="trackArtist" class="track-artist">Tempu Beats × Phonk</span>
+      </div>
+    </div>
+
+    <!-- Playback Controls & Equalizer -->
+    <div class="player-controls">
+      <button id="btnPrev" class="btn-ctrl" aria-label="Previous Track" title="Previous Track (P)">⏮</button>
+      <button id="btnPlayPause" class="btn-play-pause" aria-label="Play or Pause Track" title="Play/Pause (Space / K)">▶</button>
+      <button id="btnNext" class="btn-ctrl" aria-label="Next Track" title="Next Track (N)">⏭</button>
+      
+      <!-- Bouncing Equalizer Bars -->
+      <div id="playerEqBars" class="player-eq-bars" aria-hidden="true">
+        <div class="player-eq-bar"></div>
+        <div class="player-eq-bar"></div>
+        <div class="player-eq-bar"></div>
+        <div class="player-eq-bar"></div>
+      </div>
+    </div>
+
+    <!-- Live Progress Bar & Timers -->
+    <div class="player-progress-container">
+      <span id="currentTime" class="time-readout">0:00</span>
+      <div id="progressBarBg" class="progress-bar-bg" title="Seek Track Position">
+        <div id="progressBarFill" class="progress-bar-fill"></div>
+      </div>
+      <span id="totalTime" class="time-readout">3:35</span>
+    </div>
+
+    <!-- Volume Control Group -->
+    <div class="volume-control-group">
+      <button id="btnMute" class="btn-mute" aria-label="Toggle Mute (M)" title="Mute/Unmute (M)">🔊</button>
+      <input id="volumeSlider" class="volume-slider" type="range" min="0" max="100" value="80" aria-label="Volume Slider" />
+    </div>
+
+    <!-- Horn Pressure Pill Button & Toggle Frame Button -->
+    <button id="btnHornPill" class="btn-horn-pill" aria-label="Blow Pressure Horn (H)" title="Horn (H)">📢 HORN</button>
+    <button id="btnToggleFrame" class="btn-toggle-frame" aria-label="Toggle Video Player Drawer" title="Toggle Video Screen">📺</button>
+  </div>
+
+  <!-- CONTACT LINE & KEYBOARD SHORTCUTS BADGE BELOW PLAYER BAR -->
+  <div class="contact-line">
+    <span>contact: <a href="mailto:hello@tempuwala.radio">hello@tempuwala.radio</a></span>
+    <span>•</span>
+    <span id="kbBadge" class="kb-badge" title="Keyboard Shortcuts">⌨️ Shortcuts [?]</span>
+  </div>
+
+  <!-- KEYBOARD SHORTCUTS MODAL DRAWER -->
+  <div id="kbModal" class="kb-modal" role="dialog" aria-label="Keyboard Shortcuts">
+    <div class="kb-modal-header">
+      <span>⌨️ KEYBOARD SHORTCUTS</span>
+      <button id="kbModalClose" style="background:none; border:none; color:var(--color-hazard-yellow); cursor:pointer; font-size:1.2rem;">✕</button>
+    </div>
+    <div class="kb-grid">
+      <div class="kb-item"><span class="kb-key">Space / K</span> <span>Play / Pause</span></div>
+      <div class="kb-item"><span class="kb-key">N / →</span> <span>Next Track</span></div>
+      <div class="kb-item"><span class="kb-key">P / ←</span> <span>Prev Track</span></div>
+      <div class="kb-item"><span class="kb-key">H / B</span> <span>Horn Chime</span></div>
+      <div class="kb-item"><span class="kb-key">E</span> <span>EQ Presets</span></div>
+      <div class="kb-item"><span class="kb-key">Q</span> <span>Next Quote</span></div>
+    </div>
+  </div>
+
+  <!-- SLIDE-OUT YOUTUBE PLAYER DRAWER -->
+  <div id="playerDrawer" class="player-drawer">
+    <div id="youtube-embed"></div>
+  </div>
+
+  <!-- Toast Notification element -->
+  <div class="toast-msg" id="toastMsg" role="status">Link copied! Tempu ki sawaari bhej di gayi hai 🚀</div>
+
+  <!-- External Module Script -->
+  <script type="module" src="/src/scripts/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "Tempu Wala | Hard Bhojpuri Phonk Radio",
+  "short_name": "TempuWala",
+  "description": "Hard Bhojpuri Phonk internet radio micro-site inspired by Indian highway tempo & truck culture.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#090A0F",
+  "theme_color": "#FFC800",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
