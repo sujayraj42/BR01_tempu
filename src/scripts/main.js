@@ -171,7 +171,6 @@ export function cycleBassPreset() {
   const btn = document.getElementById('btnBassPreset');
 
   if (btn) btn.textContent = preset.name;
-  triggerHornSound();
   showToast(`🔥 EQ Preset: ${preset.name}`);
 }
 
@@ -316,11 +315,9 @@ function onPlayerError() {
 }
 
 // -------------------------------------------------------------
-// PLAYBACK CONTROLS
+// PLAYBACK CONTROLS (NO HORN SOUND ON PLAY/PAUSE/STOP)
 // -------------------------------------------------------------
 export function togglePlayPause() {
-  triggerHornSound();
-
   if (!isPlayerReady || !ytPlayer) {
     showToast("▶ Loading Player...");
     initYouTubeAPI();
@@ -339,14 +336,12 @@ export function togglePlayPause() {
 }
 
 export function nextTrack() {
-  triggerHornSound();
   if (ytPlayer && typeof ytPlayer.nextVideo === 'function') {
     ytPlayer.nextVideo();
   }
 }
 
 export function prevTrack() {
-  triggerHornSound();
   if (ytPlayer && typeof ytPlayer.previousVideo === 'function') {
     ytPlayer.previousVideo();
   }
