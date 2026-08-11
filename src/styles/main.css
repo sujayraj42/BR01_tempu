@@ -2,6 +2,8 @@
    TEMPU WALA — FULL-BLEED HERO & FLOATING PLAYER BAR DESIGN SYSTEM
    Reference: Indian Highway Truck Art & Dhaba Neon Aesthetic
    ------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
+
 :root {
   --color-asphalt: #090A0F;
   --color-asphalt-light: #12141D;
@@ -15,7 +17,7 @@
   --color-text-muted: #A0A8C0;
   
   --font-display: 'Bungee', 'Black Ops One', impact, sans-serif;
-  --font-devanagari: 'Yatra One', 'Teko', cursive, sans-serif;
+  --font-devanagari: 'Kalam', 'Yatra One', 'Teko', cursive, sans-serif;
   --font-body: 'Space Grotesk', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
@@ -199,7 +201,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 /* -------------------------------------------------------------
-   HERO HEADLINE & PURE QUOTE TYPOGRAPHY (NO BOX)
+   HERO HEADLINE & PURE QUOTE TYPOGRAPHY WITH KALAM FONT & FULL GRADIENT BOLD EFFECTS
    ------------------------------------------------------------- */
 .hero-content {
   position: fixed;
@@ -214,15 +216,18 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 .devanagari-title {
-  font-family: var(--font-devanagari);
-  font-size: clamp(3.8rem, 8vw, 7rem);
-  line-height: 1;
-  color: var(--color-hazard-yellow);
-  text-shadow: 
-    4px 4px 0px #000,
-    -2px -2px 0px var(--color-truck-red),
-    0 0 35px rgba(255, 200, 0, 0.6);
-  letter-spacing: 2px;
+  font-family: 'Kalam', 'Yatra One', cursive, sans-serif;
+  font-weight: 700;
+  font-size: clamp(4.2rem, 9vw, 7.5rem);
+  line-height: 1.1;
+  background: linear-gradient(135deg, #FFF500 0%, #FF9900 45%, #FF0055 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: 
+    drop-shadow(4px 4px 0px #000000)
+    drop-shadow(-2px -2px 0px #FF0055)
+    drop-shadow(0 0 35px rgba(255, 200, 0, 0.75));
+  letter-spacing: 3px;
 }
 
 .hero-subtitle {
@@ -232,7 +237,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   letter-spacing: 4px;
   text-transform: uppercase;
   color: var(--color-neon-cyan);
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.65);
   padding: 0.4rem 0.9rem;
   border-radius: 4px;
   border-left: 3px solid var(--color-neon-cyan);
@@ -241,15 +246,19 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
 }
 
-/* PURE FLOATING QUOTE TYPOGRAPHY (NO CARD, NO BOX) */
+/* PURE FLOATING QUOTE TYPOGRAPHY WITH KALAM FONT & FULL BOLD GRADIENT */
 .hero-quote-text {
-  font-family: var(--font-devanagari);
-  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
-  color: var(--color-hazard-yellow);
-  text-shadow: 
-    2px 2px 0px #000,
-    -1px -1px 0px var(--color-truck-red),
-    0 0 20px rgba(255, 200, 0, 0.5);
+  font-family: 'Kalam', 'Yatra One', cursive, sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+  line-height: 1.3;
+  background: linear-gradient(135deg, #FFEA00 0%, #FF7700 50%, #FF0055 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: 
+    drop-shadow(2px 2px 0px #000000)
+    drop-shadow(-1px -1px 0px #FF0055)
+    drop-shadow(0 0 20px rgba(255, 200, 0, 0.6));
   margin-top: 0.5rem;
   transition: opacity 0.4s ease, transform 0.4s ease;
   opacity: 1;
@@ -658,10 +667,10 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     text-align: center;
   }
   .devanagari-title {
-    font-size: clamp(2.8rem, 10vw, 4rem);
+    font-size: clamp(3rem, 11vw, 4.5rem);
   }
   .hero-quote-text {
-    font-size: clamp(1.2rem, 4vw, 1.6rem);
+    font-size: clamp(1.3rem, 4.5vw, 1.8rem);
   }
   .floating-player-bar {
     bottom: 1.5rem;
