@@ -111,7 +111,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 2rem 0.5rem 2rem;
+  padding: 1.25rem 2rem;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0) 100%);
   flex-wrap: wrap;
   gap: 1rem;
@@ -209,50 +209,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   font-weight: 800;
   border: 1px solid #000;
   box-shadow: 0 0 10px rgba(255, 42, 42, 0.5);
-}
-
-/* -------------------------------------------------------------
-   AUTHENTIC BIHARI TEMPU SLOGAN MARQUEE TICKER
-   ------------------------------------------------------------- */
-.slogan-ticker-wrapper {
-  position: fixed;
-  top: 72px;
-  left: 0;
-  right: 0;
-  z-index: 15;
-  background: rgba(9, 10, 15, 0.75);
-  backdrop-filter: blur(8px);
-  border-top: 1px solid rgba(255, 200, 0, 0.2);
-  border-bottom: 1px solid rgba(255, 200, 0, 0.2);
-  overflow: hidden;
-  white-space: nowrap;
-  padding: 0.35rem 0;
-}
-
-.slogan-ticker-track {
-  display: inline-flex;
-  animation: slogan-scroll 30s linear infinite;
-  gap: 2rem;
-}
-
-.slogan-ticker-item {
-  font-family: var(--font-devanagari);
-  font-size: 1.05rem;
-  color: var(--color-hazard-yellow);
-  text-shadow: 1px 1px 0 #000;
-  cursor: pointer;
-  padding: 0.1rem 0.6rem;
-  border-radius: 4px;
-  transition: background 0.15s ease;
-}
-
-.slogan-ticker-item:hover {
-  background: rgba(255, 200, 0, 0.2);
-}
-
-@keyframes slogan-scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
 }
 
 /* -------------------------------------------------------------
@@ -698,7 +654,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   .live-dot,
   .btn-play-pause,
   .player-eq-bar,
-  .slogan-ticker-track,
   .hero-quote-text {
     transition: none !important;
     animation: none !important;
@@ -709,9 +664,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   .top-bar {
     padding: 0.85rem 1rem 0.4rem 1rem;
     justify-content: center;
-  }
-  .slogan-ticker-wrapper {
-    top: 64px;
   }
   .hero-content {
     top: 22%;
