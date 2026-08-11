@@ -315,250 +315,366 @@ function renderCanvasLoop() {
 }
 
 // -------------------------------------------------------------
-// ULTIMATE MASTERPIECE VECTOR DRAWING OF CLASSIC PASSENGER AUTO RICKSHAW
+// REDESIGNED MASTERPIECE VECTOR DRAWING — ACCURATE CLASSIC BIHAR AUTO RICKSHAW
+// Viewed from side-right perspective, facing right
 // -------------------------------------------------------------
 function drawMasterpieceAuto(ctx, x, y, wheelRot, isHornFlashing) {
   ctx.save();
   ctx.translate(x, y);
 
-  // 1. HIGHWAY HEADLIGHT CONE BEAM GLOW
-  const beamGrad = ctx.createLinearGradient(205, 52, 580, 100);
-  beamGrad.addColorStop(0, isHornFlashing ? "rgba(255, 255, 220, 0.95)" : "rgba(255, 230, 140, 0.55)");
-  beamGrad.addColorStop(0.4, isHornFlashing ? "rgba(255, 220, 100, 0.4)" : "rgba(255, 200, 50, 0.2)");
-  beamGrad.addColorStop(1, "rgba(255, 180, 0, 0)");
+  // ─── COORDINATE SYSTEM (all relative to x,y bottom-left of chassis) ───
+  // Vehicle faces RIGHT. Width ~220px. Height ~130px.
+  // Wheels sit at y=0 (ground). Body rises to y=-130.
 
+  const W = 220;  // Total vehicle length
+  const H = 100;  // Chassis height above wheel centres
+  const WY = 0;   // Wheel centre Y (ground level)
+  const RW = 35;  // Rear wheel X
+  const FW = 185; // Front wheel X
+
+  // ── HEADLIGHT CONE BEAM ────────────────────────────────────────────────
+  const beamGrad = ctx.createLinearGradient(W + 5, -H * 0.5, canvas.width * 0.8, -H * 0.3);
+  beamGrad.addColorStop(0, isHornFlashing ? "rgba(255,255,200,0.92)" : "rgba(255,230,130,0.50)");
+  beamGrad.addColorStop(0.5, "rgba(255,200,60,0.18)");
+  beamGrad.addColorStop(1, "rgba(255,180,0,0)");
   ctx.fillStyle = beamGrad;
   ctx.beginPath();
-  ctx.moveTo(205, 52);
-  ctx.lineTo(canvas.width, 0);
-  ctx.lineTo(canvas.width, 160);
-  ctx.lineTo(205, 72);
+  ctx.moveTo(W + 5, -H * 0.55);
+  ctx.lineTo(canvas.width, -H * 1.1);
+  ctx.lineTo(canvas.width, H * 0.3);
+  ctx.lineTo(W + 5, -H * 0.2);
   ctx.closePath();
   ctx.fill();
 
-  // 2. REALISTIC ROAD DROP SHADOW UNDER CHASSIS
-  ctx.fillStyle = "rgba(0, 0, 0, 0.55)";
+  // ── GROUND SHADOW ──────────────────────────────────────────────────────
+  ctx.fillStyle = "rgba(0,0,0,0.5)";
   ctx.beginPath();
-  ctx.ellipse(98, 98, 118, 13, 0, 0, Math.PI * 2);
+  ctx.ellipse(W * 0.45, WY + 14, W * 0.52, 11, 0, 0, Math.PI * 2);
   ctx.fill();
 
-  // 3. REAR RUBBER MUDFLAP ("HORN OK PLEASE")
-  ctx.fillStyle = "#0B0D12";
-  ctx.fillRect(-20, 68, 15, 30);
+  // ── REAR MUDFLAP "HORN OK PLEASE" ──────────────────────────────────────
+  ctx.fillStyle = "#0A0C10";
+  ctx.beginPath();
+  ctx.roundRect(-18, -H * 0.35, 13, 28, [2, 2, 4, 4]);
+  ctx.fill();
   ctx.fillStyle = "#FFC800";
-  ctx.font = "bold 7px 'JetBrains Mono', monospace";
-  ctx.fillText("HORN OK", -19, 80);
-  ctx.fillText("PLEASE", -19, 90);
+  ctx.font = "bold 6.5px 'JetBrains Mono', monospace";
+  ctx.textAlign = "center";
+  ctx.fillText("HORN OK", -11, -H * 0.35 + 11);
+  ctx.fillText("PLEASE", -11, -H * 0.35 + 22);
 
-  // Red Hazard Tail Lamp Assembly
-  ctx.fillStyle = "#FF1A1A";
-  ctx.shadowColor = "#FF1A1A";
-  ctx.shadowBlur = 12;
-  ctx.fillRect(-15, 52, 8, 14);
-  ctx.shadowBlur = 0; // Reset
+  // ── REAR TAIL LAMP ─────────────────────────────────────────────────────
+  ctx.fillStyle = "#FF1500";
+  ctx.shadowColor = "#FF3300"; ctx.shadowBlur = 14;
+  ctx.beginPath(); ctx.roundRect(-14, -H * 0.55, 8, 16, 2); ctx.fill();
+  ctx.shadowBlur = 0;
+  ctx.strokeStyle = "#9CA3AF"; ctx.lineWidth = 1.2;
+  ctx.strokeRect(-14, -H * 0.55, 8, 16);
 
-  // Chrome Housing Frame for Tail Lamp
-  ctx.strokeStyle = "#D1D5DB";
-  ctx.lineWidth = 1.5;
-  ctx.strokeRect(-15, 52, 8, 14);
-
-  // 4. METALLIC EMERALD GREEN LOWER BODY WORK (#00C853 HIGH GLOSS)
-  const greenGrad = ctx.createLinearGradient(0, 25, 0, 90);
-  greenGrad.addColorStop(0, "#00E676");
-  greenGrad.addColorStop(0.3, "#00C853");
-  greenGrad.addColorStop(0.7, "#00873D");
-  greenGrad.addColorStop(1, "#004D25");
-  ctx.fillStyle = greenGrad;
+  // ══════════════════════════════════════════════════════════════════
+  // CHASSIS LOWER GREEN BODY  (main hull)
+  // ══════════════════════════════════════════════════════════════════
+  const gBody = ctx.createLinearGradient(0, -H, 0, WY - 10);
+  gBody.addColorStop(0, "#00E676");
+  gBody.addColorStop(0.25, "#00C853");
+  gBody.addColorStop(0.65, "#00893A");
+  gBody.addColorStop(1, "#004D20");
+  ctx.fillStyle = gBody;
 
   ctx.beginPath();
-  ctx.moveTo(-8, 30);
-  ctx.lineTo(188, 30);
-  ctx.quadraticCurveTo(206, 42, 200, 68); // Curved Aerodynamic Front Nose
-  ctx.lineTo(182, 88);
-  ctx.lineTo(10, 88);
-  ctx.quadraticCurveTo(-14, 76, -8, 30);
-  ctx.closePath();
-  ctx.fill();
-  ctx.strokeStyle = "#003318";
-  ctx.lineWidth = 2.5;
-  ctx.stroke();
-
-  // Metallic Body Gloss Highlight Line
-  ctx.strokeStyle = "rgba(255, 255, 255, 0.35)";
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.moveTo(-2, 33);
-  ctx.lineTo(184, 33);
-  ctx.stroke();
-
-  // 5. FRONT NOSE BLACK GRILLE & BUMPER ASSEMBLY (BAJAJ / MAHINDRA)
-  ctx.fillStyle = "#14171F";
-  ctx.beginPath();
-  ctx.moveTo(176, 38);
-  ctx.quadraticCurveTo(204, 44, 198, 68);
-  ctx.lineTo(182, 82);
-  ctx.lineTo(170, 82);
-  ctx.quadraticCurveTo(188, 62, 172, 38);
+  // Rear bottom corner
+  ctx.moveTo(0, WY - 10);
+  // Rear vertical edge (slightly angled)
+  ctx.lineTo(-2, -H * 0.28);
+  // Rear-top shoulder curve
+  ctx.quadraticCurveTo(-4, -H * 0.30, 5, -H * 0.32);
+  // Roof rail (straight along top)
+  ctx.lineTo(W * 0.78, -H * 0.32);
+  // Front shoulder — steep slant down to bumper nose
+  ctx.quadraticCurveTo(W * 0.92, -H * 0.32, W * 0.95, -H * 0.18);
+  ctx.quadraticCurveTo(W + 4, -H * 0.05, W + 2, WY - 10);
+  // Bottom chassis rail back
+  ctx.lineTo(0, WY - 10);
   ctx.closePath();
   ctx.fill();
 
-  // Grille Horizontal Ribs
-  ctx.strokeStyle = "#374151";
-  ctx.lineWidth = 1.5;
-  ctx.beginPath();
-  ctx.moveTo(182, 48); ctx.lineTo(198, 52);
-  ctx.moveTo(180, 56); ctx.lineTo(195, 60);
+  // Body outline
+  ctx.strokeStyle = "#003318"; ctx.lineWidth = 2;
   ctx.stroke();
 
-  // Tubular Black Steel Bumper Bar Guard
+  // Body gloss highlight stripe
+  const gHighlight = ctx.createLinearGradient(0, -H * 0.32, 0, -H * 0.20);
+  gHighlight.addColorStop(0, "rgba(255,255,255,0.38)");
+  gHighlight.addColorStop(1, "rgba(255,255,255,0)");
+  ctx.fillStyle = gHighlight;
+  ctx.beginPath();
+  ctx.moveTo(5, -H * 0.32);
+  ctx.lineTo(W * 0.78, -H * 0.32);
+  ctx.quadraticCurveTo(W * 0.90, -H * 0.32, W * 0.93, -H * 0.26);
+  ctx.lineTo(W * 0.88, -H * 0.24);
+  ctx.lineTo(8, -H * 0.24);
+  ctx.closePath();
+  ctx.fill();
+
+  // ── FRONT BUMPER / GRILLE NOSE ─────────────────────────────────────────
+  const gBumper = ctx.createLinearGradient(W * 0.88, 0, W + 8, 0);
+  gBumper.addColorStop(0, "#1C202A");
+  gBumper.addColorStop(1, "#0A0C12");
+  ctx.fillStyle = gBumper;
+  ctx.beginPath();
+  ctx.moveTo(W * 0.88, -H * 0.30);
+  ctx.quadraticCurveTo(W * 0.96, -H * 0.30, W + 4, -H * 0.14);
+  ctx.quadraticCurveTo(W + 8, -H * 0.02, W + 4, WY - 10);
+  ctx.lineTo(W * 0.88, WY - 10);
+  ctx.closePath();
+  ctx.fill();
+
+  // Bumper horizontal ribs
+  ctx.strokeStyle = "#374151"; ctx.lineWidth = 1.2;
+  for (let rib = 0; rib < 3; rib++) {
+    const ry = -H * 0.24 + rib * 8;
+    ctx.beginPath();
+    ctx.moveTo(W * 0.89, ry);
+    ctx.lineTo(W + 2, ry + 4);
+    ctx.stroke();
+  }
+
+  // Steel tubular bumper guard bar
+  ctx.strokeStyle = "#4B5563"; ctx.lineWidth = 4;
+  ctx.lineCap = "round";
+  ctx.beginPath();
+  ctx.moveTo(W + 4, -H * 0.12);
+  ctx.lineTo(W + 6, WY - 14);
+  ctx.stroke();
+  ctx.lineCap = "butt";
+
+  // ══════════════════════════════════════════════════════════════════
+  // OPEN PASSENGER COMPARTMENT SIDE (doorway)
+  // ══════════════════════════════════════════════════════════════════
   ctx.fillStyle = "#080A0F";
   ctx.beginPath();
-  ctx.roundRect(196, 54, 12, 20, 4);
+  ctx.roundRect(30, -H * 0.31, 108, H * 0.52, [8, 8, 0, 0]);
   ctx.fill();
-  ctx.strokeStyle = "#4B5563";
-  ctx.lineWidth = 1.5;
+  ctx.strokeStyle = "#003318"; ctx.lineWidth = 1.8; ctx.stroke();
+
+  // Interior — rear bench seat
+  const gSeat = ctx.createLinearGradient(0, -H * 0.14, 0, WY - 12);
+  gSeat.addColorStop(0, "#1A5C44");
+  gSeat.addColorStop(1, "#0F3A2A");
+  ctx.fillStyle = gSeat;
+  ctx.fillRect(34, -H * 0.15, 48, 22);
+
+  // Seat cushion stitching lines
+  ctx.strokeStyle = "rgba(255,255,255,0.12)"; ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(34 + 16, -H * 0.15); ctx.lineTo(34 + 16, -H * 0.15 + 22);
+  ctx.moveTo(34 + 32, -H * 0.15); ctx.lineTo(34 + 32, -H * 0.15 + 22);
   ctx.stroke();
 
-  // 6. PASSENGER DOORWAY OPENING & INTERIOR BENCH SEATS
-  ctx.fillStyle = "#090B10";
+  // Front passenger bench
+  ctx.fillStyle = gSeat;
+  ctx.fillRect(90, -H * 0.15, 38, 22);
+
+  // Backrest padding
+  ctx.fillStyle = "#1A5C44";
+  ctx.fillRect(34, -H * 0.26, 12, 24);
+
+  // Chrome side passenger handrail
+  ctx.strokeStyle = "#E2E8F0"; ctx.lineWidth = 2.5;
+  ctx.lineCap = "round";
   ctx.beginPath();
-  ctx.roundRect(38, 34, 88, 50, [10, 10, 0, 0]);
+  ctx.moveTo(132, -H * 0.30);
+  ctx.lineTo(132, WY - 14);
+  ctx.stroke();
+  ctx.lineCap = "butt";
+
+  // ── WHEEL ARCHES (over wheels) ─────────────────────────────────────────
+  ctx.fillStyle = "#0C0E14";
+  // Rear fender arch
+  ctx.beginPath();
+  ctx.arc(RW, WY - 4, 29, Math.PI, 0);
   ctx.fill();
-  ctx.strokeStyle = "#003318";
-  ctx.lineWidth = 2;
-  ctx.stroke();
-
-  // Leather Bench Seats & Backrest Cushion
-  ctx.fillStyle = "#164E3D";
-  ctx.fillRect(42, 60, 40, 20); // Rear Bench Seat
-  ctx.fillRect(92, 60, 32, 20); // Front Bench Seat
-  ctx.fillStyle = "#226B54";
-  ctx.fillRect(42, 48, 14, 30); // Backrest
-
-  // Chrome Side Passenger Grab Bar
-  ctx.strokeStyle = "#E5E7EB";
-  ctx.lineWidth = 2.5;
+  // Front fender arch
   ctx.beginPath();
-  ctx.moveTo(124, 36);
-  ctx.lineTo(124, 82);
-  ctx.stroke();
-
-  // Wheel Arches (Mudguard Housing)
-  ctx.fillStyle = "#0F1117";
-  ctx.beginPath();
-  ctx.arc(164, 88, 23, Math.PI, 0); // Front Fender Arch
-  ctx.arc(32, 88, 25, Math.PI, 0);  // Rear Arch
+  ctx.arc(FW, WY - 4, 27, Math.PI, 0);
   ctx.fill();
 
-  // 7. GOLDEN YELLOW CANOPY ROOF HOOD (#FFD100)
-  const yellowGrad = ctx.createLinearGradient(0, -20, 0, 32);
-  yellowGrad.addColorStop(0, "#FFF500");
-  yellowGrad.addColorStop(0.4, "#FFC800");
-  yellowGrad.addColorStop(0.8, "#E69900");
-  yellowGrad.addColorStop(1, "#996600");
-  ctx.fillStyle = yellowGrad;
+  // ══════════════════════════════════════════════════════════════════
+  // YELLOW CANOPY ROOF HOOD
+  // ══════════════════════════════════════════════════════════════════
+  const gRoof = ctx.createLinearGradient(0, -H * 1.30, 0, -H * 0.32);
+  gRoof.addColorStop(0, "#FFFA55");
+  gRoof.addColorStop(0.3, "#FFD600");
+  gRoof.addColorStop(0.75, "#E0A800");
+  gRoof.addColorStop(1, "#8A6200");
+  ctx.fillStyle = gRoof;
 
-  // Canopy Roof Silhouette
   ctx.beginPath();
-  ctx.moveTo(-12, 32);
-  ctx.quadraticCurveTo(-16, -10, 12, -20); // Sloped Rear Slope
-  ctx.lineTo(162, -20);                    // Flat Roof Top
-  ctx.quadraticCurveTo(192, -8, 195, 32);   // Front Visor Overhang
+  // Rear bottom of canopy
+  ctx.moveTo(-6, -H * 0.32);
+  // Rear canopy slope up to peak
+  ctx.quadraticCurveTo(-12, -H * 0.85, 10, -H * 1.28);
+  // Flat canopy ceiling
+  ctx.lineTo(W * 0.73, -H * 1.28);
+  // Front canopy visor overhang curves down
+  ctx.quadraticCurveTo(W * 0.90, -H * 1.22, W * 0.95, -H * 0.32);
   ctx.closePath();
   ctx.fill();
-  ctx.strokeStyle = "#805400";
-  ctx.lineWidth = 2.5;
+  ctx.strokeStyle = "#7A5500"; ctx.lineWidth = 2.2;
   ctx.stroke();
 
-  // Roof Canopy Fabric Rib Stitch Seams
-  ctx.strokeStyle = "rgba(0,0,0,0.22)";
-  ctx.lineWidth = 2;
+  // Canopy top gloss sheen
+  const gRoofSheen = ctx.createLinearGradient(0, -H * 1.28, 0, -H * 1.05);
+  gRoofSheen.addColorStop(0, "rgba(255,255,255,0.40)");
+  gRoofSheen.addColorStop(1, "rgba(255,255,255,0)");
+  ctx.fillStyle = gRoofSheen;
   ctx.beginPath();
-  ctx.moveTo(35, -20); ctx.lineTo(35, 32);
-  ctx.moveTo(85, -20); ctx.lineTo(85, 32);
-  ctx.moveTo(135, -20); ctx.lineTo(135, 32);
-  ctx.stroke();
-
-  // Rear Side Oval Window Cutout in Canopy (Classic Auto Style)
-  ctx.fillStyle = "#14171F";
-  ctx.beginPath();
-  ctx.roundRect(4, -8, 34, 24, 6);
-  ctx.fill();
-  ctx.strokeStyle = "#996600";
-  ctx.lineWidth = 2;
-  ctx.stroke();
-
-  // Rear Window Tint Glass Reflection
-  const rearGlassGrad = ctx.createLinearGradient(6, -6, 36, 14);
-  rearGlassGrad.addColorStop(0, "rgba(0, 240, 255, 0.45)");
-  rearGlassGrad.addColorStop(1, "rgba(0, 240, 255, 0.1)");
-  ctx.fillStyle = rearGlassGrad;
-  ctx.fillRect(7, -5, 28, 18);
-
-  // 8. FRONT WINDSHIELD GLASS & SLANTED CABIN FRAME
-  ctx.fillStyle = "#101218";
-  ctx.beginPath();
-  ctx.moveTo(150, -14);
-  ctx.lineTo(188, -6);
-  ctx.lineTo(178, 34);
-  ctx.lineTo(146, 32);
+  ctx.moveTo(12, -H * 1.26);
+  ctx.lineTo(W * 0.72, -H * 1.26);
+  ctx.quadraticCurveTo(W * 0.87, -H * 1.22, W * 0.92, -H * 1.10);
+  ctx.lineTo(W * 0.80, -H * 1.06);
+  ctx.lineTo(14, -H * 1.06);
   ctx.closePath();
   ctx.fill();
 
-  // Glass Window Tint & Dynamic Glare Reflection
-  const glassGrad = ctx.createLinearGradient(152, -12, 184, 32);
-  glassGrad.addColorStop(0, "rgba(0, 240, 255, 0.8)");
-  glassGrad.addColorStop(0.6, "rgba(0, 240, 255, 0.35)");
-  glassGrad.addColorStop(1, "rgba(0, 240, 255, 0.12)");
-  ctx.fillStyle = glassGrad;
+  // Canopy fabric seam stitch lines (vertical ribs)
+  ctx.strokeStyle = "rgba(0,0,0,0.18)"; ctx.lineWidth = 1.8;
   ctx.beginPath();
-  ctx.moveTo(152, -11);
-  ctx.lineTo(185, -4);
-  ctx.lineTo(176, 30);
-  ctx.lineTo(148, 28);
+  [0.22, 0.44, 0.65].forEach(t => {
+    const sx = 10 + t * (W * 0.73 - 10);
+    ctx.moveTo(sx, -H * 1.27);
+    ctx.lineTo(sx - 4 + t * 10, -H * 0.34);
+  });
+  ctx.stroke();
+
+  // ── REAR CANOPY OVAL SIDE WINDOW ───────────────────────────────────────
+  ctx.fillStyle = "#10131A";
+  ctx.beginPath();
+  ctx.roundRect(4, -H * 1.10, 28, 22, 7);
+  ctx.fill();
+  ctx.strokeStyle = "#7A5500"; ctx.lineWidth = 1.8; ctx.stroke();
+
+  // Window tint glass
+  const gWin = ctx.createLinearGradient(4, -H * 1.10, 32, -H * 0.88);
+  gWin.addColorStop(0, "rgba(0,240,255,0.50)");
+  gWin.addColorStop(1, "rgba(0,120,180,0.12)");
+  ctx.fillStyle = gWin;
+  ctx.beginPath();
+  ctx.roundRect(6, -H * 1.08, 24, 18, 5);
+  ctx.fill();
+
+  // Window glare streak
+  ctx.strokeStyle = "rgba(255,255,255,0.45)"; ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(8, -H * 1.06); ctx.lineTo(14, -H * 0.94);
+  ctx.stroke();
+
+  // ══════════════════════════════════════════════════════════════════
+  // FRONT DRIVER CABIN — WINDSHIELD + FRAME
+  // ══════════════════════════════════════════════════════════════════
+  // Dark cabin frame
+  ctx.fillStyle = "#0D0F16";
+  ctx.beginPath();
+  ctx.moveTo(W * 0.68, -H * 1.25);
+  ctx.lineTo(W * 0.92, -H * 1.14);
+  ctx.lineTo(W * 0.94, -H * 0.34);
+  ctx.lineTo(W * 0.68, -H * 0.34);
   ctx.closePath();
   ctx.fill();
 
-  // Dual Windshield Wiper Blades
-  ctx.strokeStyle = "#000000";
-  ctx.lineWidth = 2.2;
+  // Windshield glass
+  const gGlass = ctx.createLinearGradient(W * 0.70, -H * 1.22, W * 0.90, -H * 0.38);
+  gGlass.addColorStop(0, "rgba(0,240,255,0.78)");
+  gGlass.addColorStop(0.5, "rgba(0,200,255,0.35)");
+  gGlass.addColorStop(1, "rgba(0,120,200,0.10)");
+  ctx.fillStyle = gGlass;
   ctx.beginPath();
-  ctx.moveTo(152, 26); ctx.lineTo(172, 6);
-  ctx.stroke();
+  ctx.moveTo(W * 0.695, -H * 1.22);
+  ctx.lineTo(W * 0.905, -H * 1.11);
+  ctx.lineTo(W * 0.92, -H * 0.37);
+  ctx.lineTo(W * 0.695, -H * 0.37);
+  ctx.closePath();
+  ctx.fill();
 
-  // Driver Side Chrome Rearview Mirror
-  ctx.fillStyle = "#0F1117";
-  ctx.fillRect(188, 6, 8, 16);
-  ctx.strokeStyle = "#D1D5DB";
-  ctx.lineWidth = 2.5;
+  // Glass glare diagonal streak
+  ctx.strokeStyle = "rgba(255,255,255,0.55)"; ctx.lineWidth = 2.5;
+  ctx.lineCap = "round";
   ctx.beginPath();
-  ctx.moveTo(180, 14);
-  ctx.lineTo(188, 14);
+  ctx.moveTo(W * 0.72, -H * 1.18); ctx.lineTo(W * 0.76, -H * 0.72);
   ctx.stroke();
+  ctx.lineCap = "butt";
 
-  // 9. HIGH-INTENSITY CENTRAL HEADLIGHT & TURN INDICATORS
-  ctx.fillStyle = isHornFlashing ? "#FFFFFF" : "#FFEE55";
-  ctx.shadowColor = "#FFEA00";
-  ctx.shadowBlur = isHornFlashing ? 32 : 18;
+  // Single windshield wiper blade
+  ctx.strokeStyle = "#000"; ctx.lineWidth = 2.2; ctx.lineCap = "round";
   ctx.beginPath();
-  ctx.arc(196, 54, 10, 0, Math.PI * 2);
+  ctx.moveTo(W * 0.72, -H * 0.42);
+  ctx.quadraticCurveTo(W * 0.78, -H * 0.66, W * 0.87, -H * 0.62);
+  ctx.stroke();
+  ctx.lineCap = "butt";
+
+  // ── REARVIEW MIRROR ────────────────────────────────────────────────────
+  ctx.fillStyle = "#0D0F16";
+  ctx.beginPath();
+  ctx.roundRect(W * 0.93, -H * 1.00, 10, 16, 3);
+  ctx.fill();
+  // Mirror arm
+  ctx.strokeStyle = "#374151"; ctx.lineWidth = 2.5; ctx.lineCap = "round";
+  ctx.beginPath();
+  ctx.moveTo(W * 0.93, -H * 0.92); ctx.lineTo(W * 0.89, -H * 0.92);
+  ctx.stroke();
+  ctx.lineCap = "butt";
+
+  // ══════════════════════════════════════════════════════════════════
+  // HEADLIGHT ASSEMBLY
+  // ══════════════════════════════════════════════════════════════════
+  // Chrome surround ring
+  ctx.fillStyle = "#D1D5DB";
+  ctx.beginPath();
+  ctx.arc(W + 4, -H * 0.50, 12, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Headlight lens
+  ctx.fillStyle = isHornFlashing ? "#FFFFFF" : "#FFF176";
+  ctx.shadowColor = "#FFD600";
+  ctx.shadowBlur = isHornFlashing ? 35 : 16;
+  ctx.beginPath();
+  ctx.arc(W + 4, -H * 0.50, 9.5, 0, Math.PI * 2);
   ctx.fill();
   ctx.shadowBlur = 0;
 
-  // Chrome Surround Bezel Rim around Headlight
-  ctx.strokeStyle = "#F3F4F6";
-  ctx.lineWidth = 2.5;
-  ctx.stroke();
-
-  // Amber Side Turn Indicator Lamp
-  ctx.fillStyle = "#FF9100";
+  // Lens glare dot
+  ctx.fillStyle = "rgba(255,255,255,0.85)";
   ctx.beginPath();
-  ctx.arc(190, 40, 4.5, 0, Math.PI * 2);
+  ctx.arc(W + 1, -H * 0.54, 3, 0, Math.PI * 2);
   ctx.fill();
 
-  // 10. ROTATING 5-SPOKE ALLOY WHEELS WITH CHROME LUG NUTS
-  drawSpinningWheel(ctx, 32, 88, 21, wheelRot);
-  drawSpinningWheel(ctx, 164, 88, 19, wheelRot);
+  // Amber turn signal (top)
+  ctx.fillStyle = "#FF8C00";
+  ctx.shadowColor = "#FF8C00"; ctx.shadowBlur = 8;
+  ctx.beginPath();
+  ctx.arc(W + 2, -H * 0.70, 4.5, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.shadowBlur = 0;
+
+  // ══════════════════════════════════════════════════════════════════
+  // CHASSIS FLOOR RAILS & UNDERCARRIAGE DETAIL
+  // ══════════════════════════════════════════════════════════════════
+  ctx.fillStyle = "#0A0D13";
+  ctx.fillRect(0, WY - 12, W + 4, 10);
+
+  // Chassis rivet dots
+  ctx.fillStyle = "#374151";
+  for (let rx = 15; rx < W; rx += 30) {
+    ctx.beginPath();
+    ctx.arc(rx, WY - 7, 2, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // ══════════════════════════════════════════════════════════════════
+  // SPINNING ALLOY WHEELS
+  // ══════════════════════════════════════════════════════════════════
+  drawSpinningWheel(ctx, RW, WY, 23, wheelRot, true);   // Rear wheel (larger)
+  drawSpinningWheel(ctx, FW, WY, 19, wheelRot, false);  // Front wheel (smaller single)
 
   ctx.restore();
 }
