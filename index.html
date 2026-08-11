@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TEMPU WALA | टेम्पू वाला • Hard Bhojpuri Phonk Radio</title>
-  <meta name="description" content="Tempu Wala (टेम्पू वाला) — Hard Bhojpuri Phonk & Desi Drift Radio. Inspired by Indian highway tempo & truck culture. Listen to hard bass Bhojpuri phonk music 24/7 online. Buri Nazar Wale Tera Phonk Kala!">
+  <meta name="description" content="Tempu Wala (टेम्पू वाला) — Hard Bhojpuri Phonk & Desi Drift Radio. Animated Bihar highway auto tempo driving experience. Listen to hard bass Bhojpuri phonk music 24/7 online. Buri Nazar Wale Tera Phonk Kala!">
   <meta name="keywords" content="Bhojpuri Phonk, Tempu Wala, टेम्पू वाला, Hard Phonk, Desi Phonk, Indian Truck Art, Bhojpuri Radio, Bihar Phonk Beats, Highway Dhaba Phonk, Desi Drift Phonk, Katta Bass">
   <meta name="author" content="Tempu Wala Radio">
   <meta name="robots" content="index, follow">
@@ -17,7 +17,7 @@
   <!-- OpenGraph Meta Tags -->
   <meta property="og:site_name" content="TEMPU WALA Radio">
   <meta property="og:title" content="TEMPU WALA | टेम्पू वाला • Hard Bhojpuri Phonk Radio">
-  <meta property="og:description" content="Hard Bhojpuri Phonk internet radio micro-site inspired by Indian highway tempo & truck culture. Horn OK Please!">
+  <meta property="og:description" content="Hard Bhojpuri Phonk internet radio micro-site with animated Bihar highway auto tempo driving experience. Horn OK Please!">
   <meta property="og:image" content="https://tempu-wala.vercel.app/assets/poster-highway-night.jpg">
   <meta property="og:url" content="https://tempu-wala.vercel.app/">
   <meta property="og:type" content="music.playlist">
@@ -26,7 +26,7 @@
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="TEMPU WALA | टेम्पू वाला • Hard Bhojpuri Phonk Radio">
-  <meta name="twitter:description" content="Hard Bhojpuri Phonk internet radio micro-site inspired by Indian highway tempo & truck culture. Buri Nazar Wale Tera Phonk Kala!">
+  <meta name="twitter:description" content="Hard Bhojpuri Phonk internet radio micro-site with animated Bihar highway auto tempo driving experience. Buri Nazar Wale Tera Phonk Kala!">
   <meta name="twitter:image" content="https://tempu-wala.vercel.app/assets/poster-highway-night.jpg">
 
   <!-- Favicon & PWA Manifest -->
@@ -44,7 +44,7 @@
     "url": "https://tempu-wala.vercel.app/",
     "logo": "https://tempu-wala.vercel.app/favicon.svg",
     "image": "https://tempu-wala.vercel.app/assets/poster-highway-night.jpg",
-    "description": "Hard Bhojpuri Phonk internet radio micro-site inspired by Indian highway tempo & truck culture.",
+    "description": "Hard Bhojpuri Phonk internet radio micro-site with animated Bihar highway auto tempo driving experience.",
     "genre": ["Bhojpuri Phonk", "Hard Bass", "Indian Hip Hop", "Desi Drift Phonk"],
     "inLanguage": ["hi", "bho", "en"]
   }
@@ -60,10 +60,9 @@
 </head>
 <body>
 
-  <!-- FULL-BLEED ILLUSTRATED BACKGROUND HERO -->
+  <!-- FULL-BLEED ANIMATED HIGHWAY HERO CANVAS -->
   <div class="bg-hero-container" aria-hidden="true">
-    <img id="bgHeroImg1" class="bg-hero-img active" src="/assets/poster-highway-night.jpg" alt="Illustrated Tempo Scene - Tempu Wala Bhojpuri Phonk Radio" />
-    <img id="bgHeroImg2" class="bg-hero-img" src="/assets/poster-dhaba-break.jpg" alt="Illustrated Dhaba Scene - Tempu Wala Bhojpuri Phonk Radio" />
+    <canvas id="autoHighwayCanvas" class="auto-highway-canvas"></canvas>
     <div class="bg-overlay-shade"></div>
   </div>
 
@@ -81,7 +80,7 @@
     <!-- Top-Right: Katta Bass Preset, Spotify & Nav Buttons -->
     <nav class="top-nav-links" aria-label="Main Navigation">
       <button id="btnBassPreset" class="nav-pill-btn btn-bass-preset" aria-label="Toggle Equalizer Preset" title="Cycle Bass Preset (E)">⚡ BASS: OVERDRIVE</button>
-      <button id="btnSceneCycle" class="nav-pill-btn" aria-label="Cycle Background Scene Poster" title="Switch Hero Scene">🖼 SCENES</button>
+      <button id="btnSceneCycle" class="nav-pill-btn" aria-label="Cycle Background Scene Mood" title="Switch Highway Mood">🖼 MOODS</button>
       <a href="https://open.spotify.com/playlist/0y6yspZCEbwnNyUgNDyf0V" target="_blank" rel="noopener noreferrer" class="nav-pill-btn btn-spotify-pill" aria-label="Open in Spotify">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.48-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141 C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.3 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.18-.1.2-1.2-.42-.18-.6.42-1.2.6-1.2 4.2-1.26 11.28-1.02 15.72 1.62.54.3.72 1.02.42 1.56-.3.42-1.02.6-1.56.3z"/></svg>
         Spotify
