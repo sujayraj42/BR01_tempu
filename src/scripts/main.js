@@ -276,6 +276,10 @@ function createPlayer() {
 
 function onPlayerReady() {
   isPlayerReady = true;
+  // Strictly ensure audio does NOT play on start/load off
+  if (ytPlayer && typeof ytPlayer.pauseVideo === 'function') {
+    ytPlayer.pauseVideo();
+  }
 }
 
 function onPlayerStateChange(event) {
@@ -308,7 +312,7 @@ function onPlayerStateChange(event) {
 }
 
 function onPlayerError() {
-  showToast("⚠️ Player load error — playlist link open karo");
+  // Silent fallback so no toasts interrupt start off
 }
 
 // -------------------------------------------------------------
