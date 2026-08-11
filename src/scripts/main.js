@@ -107,7 +107,7 @@ function initCanvasEngine() {
     });
   }
 
-  // Generate Initial Roadside Elements (Milestone markers, poles, dhaba signs)
+  // Generate Initial Roadside Elements (Milestone markers, poles)
   roadsideElements = [];
   const milestoneNames = ["PATNA 45 KM", "GAYA 80 KM", "BIHAR 0 KM", "HAJIPUR 12 KM", "MUZAFFARPUR 65 KM"];
   for (let i = 0; i < 6; i++) {
@@ -185,7 +185,7 @@ function renderCanvasLoop() {
   ctx.moveTo(0, roadY + 80);
   ctx.lineTo(canvas.width, roadY + 80);
   ctx.stroke();
-  ctx.setLineDash([]); // Reset dash
+  ctx.setLineDash([]);
 
   // 6. Draw Parallax Roadside Elements (Milestones & Poles)
   roadsideElements.forEach(el => {
@@ -195,11 +195,9 @@ function renderCanvasLoop() {
     }
 
     if (el.type === 'milestone') {
-      // Milestone Marker (Yellow & White Bihar Milestone)
       const mx = el.x;
       const my = roadY - 45;
 
-      // Base stone body
       ctx.fillStyle = "#EAEAEA";
       ctx.beginPath();
       ctx.arc(mx + 16, my + 16, 16, Math.PI, 0);
@@ -209,20 +207,17 @@ function renderCanvasLoop() {
       ctx.lineWidth = 2;
       ctx.stroke();
 
-      // Yellow top dome
       ctx.fillStyle = "#FFC800";
       ctx.beginPath();
       ctx.arc(mx + 16, my + 16, 15, Math.PI, 0);
       ctx.fill();
 
-      // Milestone text
       ctx.fillStyle = "#000";
       ctx.font = "bold 9px 'JetBrains Mono', monospace";
       ctx.textAlign = "center";
       ctx.fillText("BIHAR", mx + 16, my + 12);
       ctx.fillText(el.text.split(' ')[0], mx + 16, my + 28);
     } else {
-      // Electric Pole with Wire
       const px = el.x;
       const py = roadY - 160;
 
@@ -233,14 +228,12 @@ function renderCanvasLoop() {
       ctx.lineTo(px, py);
       ctx.stroke();
 
-      // Crossbar
       ctx.lineWidth = 3;
       ctx.beginPath();
       ctx.moveTo(px - 20, py + 15);
       ctx.lineTo(px + 20, py + 15);
       ctx.stroke();
 
-      // Sagging Wire Line
       ctx.strokeStyle = "rgba(100,110,130,0.5)";
       ctx.lineWidth = 1.5;
       ctx.beginPath();
@@ -263,18 +256,18 @@ function renderCanvasLoop() {
 
   // 8. Auto Rickshaw Position Calculations
   const autoX = canvas.width > 768 ? canvas.width * 0.38 : canvas.width * 0.15;
-  const autoY = roadY - 110 + suspensionY;
+  const autoY = roadY - 115 + suspensionY;
 
   wheelRotation += currentSpeed * 0.08;
 
-  // 9. DRAW THE GREEN & YELLOW BIHAR AUTO TEMPO
+  // 9. DRAW THE PERFECT SHAPED GREEN & YELLOW BIHAR AUTO TEMPO
   drawBihariAuto(ctx, autoX, autoY, wheelRotation, hornFlash > 0);
 
   // 10. Exhaust Particles
   if (frameCount % 4 === 0) {
     exhaustParticles.push({
-      x: autoX - 10,
-      y: autoY + 80,
+      x: autoX - 15,
+      y: autoY + 82,
       radius: 3 + Math.random() * 4,
       alpha: 0.6,
       vx: -currentSpeed * 0.3 - Math.random() * 1.5,
@@ -282,7 +275,6 @@ function renderCanvasLoop() {
     });
   }
 
-  // Draw Exhaust Particles
   ctx.fillStyle = "rgba(180, 190, 200, 0.4)";
   for (let i = exhaustParticles.length - 1; i >= 0; i--) {
     const p = exhaustParticles[i];
@@ -307,158 +299,223 @@ function renderCanvasLoop() {
 }
 
 // -------------------------------------------------------------
-// VECTOR DRAWING OF GREEN & YELLOW BIHAR PASSENGER AUTO RICKSHAW
+// PERFECT ACCURATE SHAPE VECTOR DRAWING OF BIHAR PASSENGER AUTO RICKSHAW
 // -------------------------------------------------------------
 function drawBihariAuto(ctx, x, y, wheelRot, isHornFlashing) {
   ctx.save();
   ctx.translate(x, y);
 
   // A) HEADLIGHT BEAM GLOW (LIGHTING UP THE ROAD AHEAD)
-  const beamGrad = ctx.createLinearGradient(190, 45, 500, 90);
-  beamGrad.addColorStop(0, isHornFlashing ? "rgba(255, 255, 200, 0.85)" : "rgba(255, 230, 140, 0.45)");
+  const beamGrad = ctx.createLinearGradient(200, 48, 550, 95);
+  beamGrad.addColorStop(0, isHornFlashing ? "rgba(255, 255, 220, 0.9)" : "rgba(255, 230, 140, 0.5)");
   beamGrad.addColorStop(1, "rgba(255, 200, 0, 0)");
 
   ctx.fillStyle = beamGrad;
   ctx.beginPath();
-  ctx.moveTo(190, 45);
+  ctx.moveTo(200, 48);
   ctx.lineTo(canvas.width, 10);
-  ctx.lineTo(canvas.width, 140);
-  ctx.lineTo(190, 65);
+  ctx.lineTo(canvas.width, 150);
+  ctx.lineTo(200, 68);
   ctx.closePath();
   ctx.fill();
 
-  // B) VEHICLE DROP SHADOW ON ROAD
-  ctx.fillStyle = "rgba(0, 0, 0, 0.45)";
+  // B) GROUND DROP SHADOW
+  ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
   ctx.beginPath();
-  ctx.ellipse(90, 96, 105, 12, 0, 0, Math.PI * 2);
+  ctx.ellipse(95, 96, 115, 12, 0, 0, Math.PI * 2);
   ctx.fill();
 
   // C) REAR MUDFLAP ("HORN OK PLEASE")
-  ctx.fillStyle = "#181A22";
-  ctx.fillRect(-15, 65, 12, 28);
+  ctx.fillStyle = "#11141A";
+  ctx.fillRect(-18, 65, 14, 28);
   ctx.fillStyle = "#FFC800";
   ctx.font = "700 7px 'JetBrains Mono', monospace";
-  ctx.fillText("HORN OK", -14, 78);
-  ctx.fillText("PLEASE", -14, 88);
+  ctx.fillText("HORN OK", -17, 77);
+  ctx.fillText("PLEASE", -17, 87);
 
   // Red Tail Reflector Lamp
   ctx.fillStyle = "#FF2A2A";
-  ctx.fillRect(-12, 52, 6, 10);
   ctx.shadowColor = "#FF2A2A";
-  ctx.shadowBlur = 8;
-  ctx.fillRect(-12, 52, 6, 10);
-  ctx.shadowBlur = 0; // Reset shadow
+  ctx.shadowBlur = 10;
+  ctx.fillRect(-14, 50, 7, 12);
+  ctx.shadowBlur = 0; // Reset
 
-  // D) LOWER METALLIC GREEN BODY (#00A859 BIHAR AUTO GREEN)
-  const greenGrad = ctx.createLinearGradient(0, 30, 0, 85);
+  // D) LOWER METALLIC GREEN BODY WORK (#00A859 BIHAR GREEN)
+  const greenGrad = ctx.createLinearGradient(0, 25, 0, 85);
   greenGrad.addColorStop(0, "#00A859");
-  greenGrad.addColorStop(1, "#006837");
+  greenGrad.addColorStop(0.6, "#008848");
+  greenGrad.addColorStop(1, "#00582D");
   ctx.fillStyle = greenGrad;
 
+  // Main Green Body Shell Contour
   ctx.beginPath();
-  ctx.moveTo(0, 35);
-  ctx.lineTo(180, 35);
-  ctx.quadraticCurveTo(195, 45, 190, 65); // Front nose curve
-  ctx.lineTo(170, 85);
-  ctx.lineTo(10, 85);
-  ctx.quadraticCurveTo(-10, 75, 0, 35);
+  ctx.moveTo(-5, 28);
+  ctx.lineTo(185, 28);
+  ctx.quadraticCurveTo(202, 38, 198, 62); // Front Nose Slanted Curve
+  ctx.lineTo(178, 86);
+  ctx.lineTo(12, 86);
+  ctx.quadraticCurveTo(-12, 75, -5, 28);
   ctx.closePath();
   ctx.fill();
-  ctx.strokeStyle = "#004223";
+  ctx.strokeStyle = "#00381C";
+  ctx.lineWidth = 2.5;
+  ctx.stroke();
+
+  // Front Nose Black Bumper / Grille Panel (Mahindra / Bajaj Style)
+  ctx.fillStyle = "#1A1D24";
+  ctx.beginPath();
+  ctx.moveTo(175, 36);
+  ctx.quadraticCurveTo(200, 42, 196, 62);
+  ctx.lineTo(180, 80);
+  ctx.lineTo(168, 80);
+  ctx.quadraticCurveTo(185, 60, 170, 36);
+  ctx.closePath();
+  ctx.fill();
+
+  // Black Front Bumper Guard Bar
+  ctx.fillStyle = "#090A0F";
+  ctx.fillRect(194, 52, 10, 18);
+
+  // Side Passenger Doorway Opening
+  ctx.fillStyle = "#0A0C12";
+  ctx.beginPath();
+  ctx.roundRect(40, 32, 85, 48, [8, 8, 0, 0]);
+  ctx.fill();
+  ctx.strokeStyle = "#00381C";
   ctx.lineWidth = 2;
   ctx.stroke();
 
-  // Side Entrance Door Frame / Cutout
-  ctx.fillStyle = "#0A0C12";
-  ctx.fillRect(45, 40, 75, 40);
-  // Passenger Seat Cushion inside
+  // Passenger Bench Seats & Cushions inside Doorway
   ctx.fillStyle = "#1B4D3E";
-  ctx.fillRect(50, 62, 35, 15);
-  ctx.fillRect(88, 62, 28, 15);
+  ctx.fillRect(44, 58, 38, 18); // Rear Bench
+  ctx.fillRect(92, 58, 30, 18); // Front Bench
+  ctx.fillStyle = "#266B57";
+  ctx.fillRect(44, 46, 12, 28); // Rear Backrest Cushion
 
-  // Front Fender / Wheel Mudguard
-  ctx.fillStyle = "#111";
+  // Chrome Side Passenger Handrail Bar
+  ctx.strokeStyle = "#D1D5DB";
+  ctx.lineWidth = 2.5;
   ctx.beginPath();
-  ctx.arc(160, 85, 20, Math.PI, 0);
+  ctx.moveTo(122, 35);
+  ctx.lineTo(122, 78);
+  ctx.stroke();
+
+  // Front & Rear Wheel Arches
+  ctx.fillStyle = "#11141A";
+  ctx.beginPath();
+  ctx.arc(162, 86, 22, Math.PI, 0); // Front Mudguard Arch
+  ctx.arc(32, 86, 24, Math.PI, 0);  // Rear Arch
   ctx.fill();
 
-  // Rear Wheel Arch
-  ctx.beginPath();
-  ctx.arc(30, 85, 22, Math.PI, 0);
-  ctx.fill();
-
-  // E) VIBRANT YELLOW CANOPY ROOF (#FFD100 TRADITIONAL HOOD)
-  const yellowGrad = ctx.createLinearGradient(0, -10, 0, 35);
-  yellowGrad.addColorStop(0, "#FFE033");
+  // E) PERFECT VIBRANT YELLOW CANOPY ROOF HOOD (#FFD100)
+  const yellowGrad = ctx.createLinearGradient(0, -18, 0, 30);
+  yellowGrad.addColorStop(0, "#FFF033");
+  yellowGrad.addColorStop(0.5, "#FFD100");
   yellowGrad.addColorStop(1, "#E6B800");
   ctx.fillStyle = yellowGrad;
 
+  // Canopy Roof Silhouette Shape
   ctx.beginPath();
-  ctx.moveTo(-5, 35);
-  ctx.quadraticCurveTo(-10, 0, 15, -12);
-  ctx.lineTo(150, -12);
-  ctx.quadraticCurveTo(180, 0, 185, 35);
+  ctx.moveTo(-10, 30);
+  ctx.quadraticCurveTo(-14, -8, 12, -18); // Sloped Rear Roof Corner
+  ctx.lineTo(158, -18);                   // Flat Top Roof Line
+  ctx.quadraticCurveTo(188, -6, 192, 30);  // Front Visor Overhang Curve
   ctx.closePath();
   ctx.fill();
-  ctx.strokeStyle = "#B38F00";
-  ctx.lineWidth = 2;
+  ctx.strokeStyle = "#997A00";
+  ctx.lineWidth = 2.5;
   ctx.stroke();
 
-  // Canopy Fabric Rib Lines & Straps
-  ctx.strokeStyle = "rgba(0,0,0,0.25)";
+  // Canopy Fabric Rib Seams & Straps
+  ctx.strokeStyle = "rgba(0,0,0,0.2)";
   ctx.lineWidth = 2;
   ctx.beginPath();
-  ctx.moveTo(35, -12); ctx.lineTo(35, 35);
-  ctx.moveTo(85, -12); ctx.lineTo(85, 35);
-  ctx.moveTo(135, -12); ctx.lineTo(135, 35);
+  ctx.moveTo(35, -18); ctx.lineTo(35, 30);
+  ctx.moveTo(85, -18); ctx.lineTo(85, 30);
+  ctx.moveTo(135, -18); ctx.lineTo(135, 30);
   ctx.stroke();
 
-  // F) FRONT WINDSHIELD GLASS & FRAME
-  ctx.fillStyle = "#181A22";
-  ctx.fillRect(145, -5, 32, 42);
+  // Rear Side Window Cutout in Yellow Canopy (Classic Auto Style)
+  ctx.fillStyle = "#1A1D24";
+  ctx.beginPath();
+  ctx.roundRect(5, -6, 32, 22, 4);
+  ctx.fill();
+  ctx.strokeStyle = "#997A00";
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
 
-  // Glass Window Shine
-  const glassGrad = ctx.createLinearGradient(148, -2, 175, 35);
-  glassGrad.addColorStop(0, "rgba(0, 240, 255, 0.7)");
+  // Rear Window Glass Tint
+  ctx.fillStyle = "rgba(0, 240, 255, 0.25)";
+  ctx.fillRect(8, -3, 26, 16);
+
+  // F) FRONT WINDSHIELD GLASS & FRAME
+  ctx.fillStyle = "#12141A";
+  ctx.beginPath();
+  ctx.moveTo(148, -12);
+  ctx.lineTo(184, -4);
+  ctx.lineTo(176, 32);
+  ctx.lineTo(144, 30);
+  ctx.closePath();
+  ctx.fill();
+
+  // Glass Window Tint & Shine
+  const glassGrad = ctx.createLinearGradient(150, -10, 180, 30);
+  glassGrad.addColorStop(0, "rgba(0, 240, 255, 0.75)");
   glassGrad.addColorStop(1, "rgba(0, 240, 255, 0.15)");
   ctx.fillStyle = glassGrad;
-  ctx.fillRect(148, -2, 26, 36);
+  ctx.beginPath();
+  ctx.moveTo(150, -9);
+  ctx.lineTo(181, -2);
+  ctx.lineTo(174, 28);
+  ctx.lineTo(147, 26);
+  ctx.closePath();
+  ctx.fill();
 
-  // Windshield Wiper Arm
+  // Dual Windshield Wipers
   ctx.strokeStyle = "#000";
   ctx.lineWidth = 2;
   ctx.beginPath();
-  ctx.moveTo(148, 30);
-  ctx.lineTo(165, 10);
+  ctx.moveTo(150, 24); ctx.lineTo(168, 5);
   ctx.stroke();
 
-  // Driver Side Rearview Mirror
+  // Driver Rearview Side Mirror
   ctx.fillStyle = "#111";
-  ctx.fillRect(178, 12, 6, 12);
+  ctx.fillRect(186, 6, 7, 14);
   ctx.strokeStyle = "#111";
-  ctx.lineWidth = 2;
+  ctx.lineWidth = 2.5;
   ctx.beginPath();
-  ctx.moveTo(172, 18);
-  ctx.lineTo(178, 18);
+  ctx.moveTo(178, 13);
+  ctx.lineTo(186, 13);
   ctx.stroke();
 
-  // G) FRONT HEADLIGHT BULB & NOSE ACCENT
-  ctx.fillStyle = isHornFlashing ? "#FFFFFF" : "#FFC800";
-  ctx.shadowColor = "#FFC800";
-  ctx.shadowBlur = isHornFlashing ? 25 : 12;
+  // G) MAIN HEADLIGHT & AMBER SIDE TURN INDICATORS
+  ctx.fillStyle = isHornFlashing ? "#FFFFFF" : "#FFEA00";
+  ctx.shadowColor = "#FFEA00";
+  ctx.shadowBlur = isHornFlashing ? 30 : 15;
   ctx.beginPath();
-  ctx.arc(188, 52, 8, 0, Math.PI * 2);
+  ctx.arc(194, 52, 9, 0, Math.PI * 2);
   ctx.fill();
   ctx.shadowBlur = 0; // Reset
 
-  // H) SPINNING WHEELS (REAR & FRONT)
-  drawSpinningWheel(ctx, 30, 85, 18, wheelRot);
-  drawSpinningWheel(ctx, 160, 85, 16, wheelRot);
+  // Headlight Chrome Rim
+  ctx.strokeStyle = "#E5E7EB";
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // Amber Indicator Lamp (Top Nose)
+  ctx.fillStyle = "#FF9900";
+  ctx.beginPath();
+  ctx.arc(188, 38, 4, 0, Math.PI * 2);
+  ctx.fill();
+
+  // H) SPINNING 5-SPOKE ALLOY WHEELS (REAR & FRONT)
+  drawSpinningWheel(ctx, 32, 86, 20, wheelRot);
+  drawSpinningWheel(ctx, 162, 86, 18, wheelRot);
 
   ctx.restore();
 }
 
-// DRAW ROTATING WHEEL WITH SILVER ALLOY SPOKES
+// DRAW ROTATING 5-SPOKE ALLOY WHEEL WITH SILVER RIM
 function drawSpinningWheel(ctx, wx, wy, radius, rot) {
   ctx.save();
   ctx.translate(wx, wy);
@@ -468,31 +525,39 @@ function drawSpinningWheel(ctx, wx, wy, radius, rot) {
   ctx.beginPath();
   ctx.arc(0, 0, radius, 0, Math.PI * 2);
   ctx.fill();
-  ctx.strokeStyle = "#2A2E3B";
-  ctx.lineWidth = 3;
+  ctx.strokeStyle = "#2E3342";
+  ctx.lineWidth = 3.5;
+  ctx.stroke();
+
+  // Tire Tread Details
+  ctx.strokeStyle = "#08090C";
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.arc(0, 0, radius - 2, 0, Math.PI * 2);
   ctx.stroke();
 
   // Inner Silver Alloy Rim
-  ctx.fillStyle = "#C0C6D4";
+  ctx.fillStyle = "#D1D5DB";
   ctx.beginPath();
-  ctx.arc(0, 0, radius * 0.55, 0, Math.PI * 2);
+  ctx.arc(0, 0, radius * 0.58, 0, Math.PI * 2);
   ctx.fill();
 
-  // Rotating Spokes
+  // Rotating 5-Spoke Alloy Pattern
   ctx.rotate(rot);
-  ctx.strokeStyle = "#12141A";
-  ctx.lineWidth = 2.5;
-  for (let i = 0; i < 4; i++) {
+  ctx.strokeStyle = "#1F2937";
+  ctx.lineWidth = 3;
+  for (let i = 0; i < 5; i++) {
+    const angle = (i * Math.PI * 2) / 5;
     ctx.beginPath();
     ctx.moveTo(0, 0);
-    ctx.lineTo(radius * 0.55 * Math.cos((i * Math.PI) / 2), radius * 0.55 * Math.sin((i * Math.PI) / 2));
+    ctx.lineTo((radius * 0.58) * Math.cos(angle), (radius * 0.58) * Math.sin(angle));
     ctx.stroke();
   }
 
-  // Center Wheel Cap
+  // Center Gold Wheel Hub Nut
   ctx.fillStyle = "#FFC800";
   ctx.beginPath();
-  ctx.arc(0, 0, 3, 0, Math.PI * 2);
+  ctx.arc(0, 0, 4, 0, Math.PI * 2);
   ctx.fill();
 
   ctx.restore();
