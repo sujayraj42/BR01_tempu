@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TEMPU WALA | टेम्पू वाला • Hard Bhojpuri Phonk Radio</title>
-  <meta name="description" content="Tempu Wala (टेम्पू वाला) — Hard Bhojpuri Phonk & Desi Drift Radio. Animated Bihar highway auto tempo driving experience. Listen to hard bass Bhojpuri phonk music 24/7 online. Buri Nazar Wale Tera Phonk Kala!">
+  <meta name="description" content="Tempu Wala (टेम्पू वाला) — Hard Bhojpuri Phonk & Desi Drift Radio. High-energy Bihar highway radio experience. Buri Nazar Wale Tera Phonk Kala!">
   <meta name="keywords" content="Bhojpuri Phonk, Tempu Wala, टेम्पू वाला, Hard Phonk, Desi Phonk, Indian Truck Art, Bhojpuri Radio, Bihar Phonk Beats, Highway Dhaba Phonk, Desi Drift Phonk, Katta Bass">
   <meta name="author" content="Tempu Wala Radio">
   <meta name="robots" content="index, follow">
@@ -17,7 +17,7 @@
   <!-- OpenGraph Meta Tags -->
   <meta property="og:site_name" content="TEMPU WALA Radio">
   <meta property="og:title" content="TEMPU WALA | टेम्पू वाला • Hard Bhojpuri Phonk Radio">
-  <meta property="og:description" content="Hard Bhojpuri Phonk internet radio micro-site with animated Bihar highway auto tempo driving experience. Horn OK Please!">
+  <meta property="og:description" content="Hard Bhojpuri Phonk internet radio micro-site. Horn OK Please!">
   <meta property="og:image" content="https://tempu-wala.vercel.app/assets/poster-highway-night.jpg">
   <meta property="og:url" content="https://tempu-wala.vercel.app/">
   <meta property="og:type" content="music.playlist">
@@ -26,7 +26,7 @@
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="TEMPU WALA | टेम्पू वाला • Hard Bhojpuri Phonk Radio">
-  <meta name="twitter:description" content="Hard Bhojpuri Phonk internet radio micro-site with animated Bihar highway auto tempo driving experience. Buri Nazar Wale Tera Phonk Kala!">
+  <meta name="twitter:description" content="Hard Bhojpuri Phonk internet radio micro-site. Buri Nazar Wale Tera Phonk Kala!">
   <meta name="twitter:image" content="https://tempu-wala.vercel.app/assets/poster-highway-night.jpg">
 
   <!-- Favicon & PWA Manifest -->
@@ -44,7 +44,7 @@
     "url": "https://tempu-wala.vercel.app/",
     "logo": "https://tempu-wala.vercel.app/favicon.svg",
     "image": "https://tempu-wala.vercel.app/assets/poster-highway-night.jpg",
-    "description": "Hard Bhojpuri Phonk internet radio micro-site with animated Bihar highway auto tempo driving experience.",
+    "description": "Hard Bhojpuri Phonk internet radio micro-site.",
     "genre": ["Bhojpuri Phonk", "Hard Bass", "Indian Hip Hop", "Desi Drift Phonk"],
     "inLanguage": ["hi", "bho", "en"]
   }
@@ -60,27 +60,28 @@
 </head>
 <body>
 
-  <!-- FULL-BLEED ANIMATED HIGHWAY HERO CANVAS -->
+  <!-- FULL-BLEED ATMOSPHERIC POSTER HERO BACKGROUND -->
   <div class="bg-hero-container" aria-hidden="true">
-    <canvas id="autoHighwayCanvas" class="auto-highway-canvas"></canvas>
+    <div id="bgPosterA" class="bg-poster-layer active" style="background-image: url('/assets/poster-highway-night.jpg');"></div>
+    <div id="bgPosterB" class="bg-poster-layer" style="background-image: url('/assets/poster-dhaba-break.jpg');"></div>
     <div class="bg-overlay-shade"></div>
+    
+    <!-- Audio Waveform Visualizer Canvas -->
+    <canvas id="audioVisualizerCanvas" class="audio-visualizer-canvas"></canvas>
   </div>
 
-  <!-- TOP BAR (TRANSPARENT OVERLAY) -->
+  <!-- TOP BAR (CLEAN, MINIMAL, UNINTRUSIVE) -->
   <header class="top-bar" role="banner">
-    <!-- Top-Left: Real-time Live Clock -->
-    <div id="liveClock" class="live-clock" title="Current Time">5:10 PM</div>
-
-    <!-- Top-Center: Minimal Live Status Indicator -->
-    <div class="live-status-pill" title="Live Listeners Online" aria-live="polite">
-      <span class="live-dot" aria-hidden="true"></span>
-      <span id="sawaariCount">1,428 SAWAARI ONLINE</span>
+    <!-- Top-Left: Brand Tag -->
+    <div class="top-brand">
+      <span class="brand-badge">🛺 BIHAR DRIFT</span>
     </div>
 
-    <!-- Top-Right: Katta Bass Preset, Spotify & Nav Buttons -->
+    <!-- Top-Right: Controls & Spotify -->
     <nav class="top-nav-links" aria-label="Main Navigation">
       <button id="btnBassPreset" class="nav-pill-btn btn-bass-preset" aria-label="Toggle Equalizer Preset" title="Cycle Bass Preset (E)">⚡ BASS: OVERDRIVE</button>
-      <button id="btnSceneCycle" class="nav-pill-btn" aria-label="Cycle Background Scene Mood" title="Switch Highway Mood">🖼 MOODS</button>
+      <button id="btnSceneCycle" class="nav-pill-btn" aria-label="Cycle Background Scene Mood" title="Switch Poster Art (M)">🖼 POSTERS</button>
+      <button id="btnPlaylistToggle" class="nav-pill-btn btn-playlist-pill" aria-label="Toggle Track Playlist" title="Open Playlist (L)">🎵 TRACKS</button>
       <a href="https://open.spotify.com/playlist/0y6yspZCEbwnNyUgNDyf0V" target="_blank" rel="noopener noreferrer" class="nav-pill-btn btn-spotify-pill" aria-label="Open in Spotify">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.48-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141 C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.3 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.18-.1.2-1.2-.42-.18-.6.42-1.2.6-1.2 4.2-1.26 11.28-1.02 15.72 1.62.54.3.72 1.02.42 1.56-.3.42-1.02.6-1.56.3z"/></svg>
         Spotify
@@ -88,24 +89,45 @@
     </nav>
   </header>
 
-  <!-- HERO HEADLINE & PURE FLOATING QUOTE TYPOGRAPHY -->
+  <!-- HERO HEADLINE & INTERACTIVE SHAYARI CARD -->
   <main class="hero-content">
     <h1 class="devanagari-title">टेम्पू वाला</h1>
     <p class="hero-subtitle">TEMPU WALA · HARD PHONK ON WHEELS</p>
-    <p id="heroQuoteText" class="hero-quote-text">"हंस मत पगले प्यार हो जाएगा"</p>
+    
+    <!-- Dynamic Quote Container with Copy & Next Buttons for Audience Engagement -->
+    <div class="hero-quote-card">
+      <p id="heroQuoteText" class="hero-quote-text">"हंस मत पगले प्यार हो जाएगा"</p>
+      <div class="quote-actions">
+        <button id="btnNextQuote" class="btn-quote-action" title="Next Highway Slogan (Q)">🔀 Next</button>
+        <button id="btnCopyQuote" class="btn-quote-action" title="Copy Slogan">📋 Copy</button>
+      </div>
+    </div>
+
+    <!-- Audience Social Reaction Pills -->
+    <div class="audience-engagement-bar">
+      <button id="btnLikeTrack" class="engage-pill" title="Like Track">
+        <span id="likeIcon">❤️</span> <span id="likeCount">2.8k</span>
+      </button>
+      <button id="btnShareTrack" class="engage-pill" title="Share Radio Link">
+        <span>🔗</span> <span>Share</span>
+      </button>
+      <div class="sawaari-mini-tag">
+        <span class="pulse-green-dot"></span> <span>24/7 Phonk Stream</span>
+      </div>
+    </div>
   </main>
 
   <!-- FLOATING BOTTOM PLAYER BAR -->
   <div class="floating-player-bar" role="region" aria-label="Audio Player Controls">
     
     <!-- Track Info & Revolving Song Progress Ring Thumbnail -->
-    <div class="player-track-info">
-      <div class="player-thumb-wrapper" title="Track Elapsed Progress Ring">
+    <div class="player-track-info" id="playerTrackInfo" title="Click to View Tracks">
+      <div class="player-thumb-wrapper">
         <svg class="progress-ring-svg" width="54" height="54" viewBox="0 0 54 54">
           <circle class="progress-ring-bg" cx="27" cy="27" r="23" />
           <circle id="progressRingCircle" class="progress-ring-fill" cx="27" cy="27" r="23" />
         </svg>
-        <img id="playerThumb" class="player-thumb" src="/assets/poster-highway-night.jpg" alt="Track Album Art - Tempu Wala Radio" />
+        <img id="playerThumb" class="player-thumb" src="/assets/poster-highway-night.jpg" alt="Track Album Art" />
       </div>
       <div class="track-text">
         <span id="trackTitle" class="track-title">Katta Bass Phonk</span>
@@ -113,13 +135,13 @@
       </div>
     </div>
 
-    <!-- Playback Controls & Equalizer -->
+    <!-- Playback Controls & Bouncing Equalizer -->
     <div class="player-controls">
       <button id="btnPrev" class="btn-ctrl" aria-label="Previous Track" title="Previous Track (P)">⏮</button>
       <button id="btnPlayPause" class="btn-play-pause" aria-label="Play or Pause Track" title="Play/Pause (Space / K)">▶</button>
       <button id="btnNext" class="btn-ctrl" aria-label="Next Track" title="Next Track (N)">⏭</button>
       
-      <!-- Bouncing Equalizer Bars -->
+      <!-- Equalizer Visual Bars -->
       <div id="playerEqBars" class="player-eq-bars" aria-hidden="true">
         <div class="player-eq-bar"></div>
         <div class="player-eq-bar"></div>
@@ -143,19 +165,30 @@
       <input id="volumeSlider" class="volume-slider" type="range" min="0" max="100" value="80" aria-label="Volume Slider" />
     </div>
 
-    <!-- Horn Pressure Pill Button & Toggle Frame Button -->
-    <button id="btnHornPill" class="btn-horn-pill" aria-label="Blow Pressure Horn (H)" title="Horn (H)">📢 HORN</button>
-    <button id="btnToggleFrame" class="btn-toggle-frame" aria-label="Toggle Video Player Drawer" title="Toggle Video Screen">📺</button>
+    <!-- Horn Button & Drawer Controls -->
+    <button id="btnHornPill" class="btn-horn-pill" aria-label="Blow Pressure Horn (H)" title="Pressure Horn (H)">📢 HORN</button>
+    <button id="btnToggleFrame" class="btn-toggle-frame" aria-label="Toggle Video Player Drawer" title="Video Screen">📺</button>
   </div>
 
-  <!-- CONTACT LINE & KEYBOARD SHORTCUTS BADGE BELOW PLAYER BAR -->
+  <!-- PLAYLIST / TRACK SELECTION DRAWER -->
+  <div id="playlistDrawer" class="playlist-drawer" role="dialog" aria-label="Playlist Selection">
+    <div class="playlist-header">
+      <span class="playlist-title">🔥 HARD PHONK PLAYLIST</span>
+      <button id="playlistClose" class="btn-close-drawer" aria-label="Close Playlist">✕</button>
+    </div>
+    <div id="playlistGrid" class="playlist-grid">
+      <!-- Tracks populated dynamically by JavaScript -->
+    </div>
+  </div>
+
+  <!-- CONTACT LINE & KEYBOARD SHORTCUTS -->
   <footer class="contact-line" role="contentinfo">
     <span>contact: <a href="mailto:hello@tempuwala.radio">hello@tempuwala.radio</a></span>
     <span>•</span>
     <span id="kbBadge" class="kb-badge" title="Keyboard Shortcuts">⌨️ Shortcuts [?]</span>
   </footer>
 
-  <!-- KEYBOARD SHORTCUTS MODAL DRAWER -->
+  <!-- KEYBOARD SHORTCUTS MODAL -->
   <div id="kbModal" class="kb-modal" role="dialog" aria-label="Keyboard Shortcuts">
     <div class="kb-modal-header">
       <span>⌨️ KEYBOARD SHORTCUTS</span>
@@ -165,9 +198,11 @@
       <div class="kb-item"><span class="kb-key">Space / K</span> <span>Play / Pause</span></div>
       <div class="kb-item"><span class="kb-key">N / →</span> <span>Next Track</span></div>
       <div class="kb-item"><span class="kb-key">P / ←</span> <span>Prev Track</span></div>
-      <div class="kb-item"><span class="kb-key">H / B</span> <span>Horn Chime</span></div>
+      <div class="kb-item"><span class="kb-key">H / B</span> <span>Pressure Horn</span></div>
+      <div class="kb-item"><span class="kb-key">M</span> <span>Poster Mood</span></div>
+      <div class="kb-item"><span class="kb-key">L</span> <span>Track Playlist</span></div>
       <div class="kb-item"><span class="kb-key">E</span> <span>EQ Presets</span></div>
-      <div class="kb-item"><span class="kb-key">Q</span> <span>Next Quote</span></div>
+      <div class="kb-item"><span class="kb-key">Q</span> <span>Next Slogan</span></div>
     </div>
   </div>
 
@@ -176,10 +211,11 @@
     <div id="youtube-embed"></div>
   </div>
 
-  <!-- Toast Notification element -->
+  <!-- Toast Notification -->
   <div class="toast-msg" id="toastMsg" role="status">Link copied! Tempu ki sawaari bhej di gayi hai 🚀</div>
 
   <!-- External Module Script -->
   <script type="module" src="/src/scripts/main.js"></script>
 </body>
 </html>
+
