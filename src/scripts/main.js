@@ -12,14 +12,12 @@ const SCENE_POSTERS = [
 ];
 
 const PLAYLIST_TRACKS = [
-  { id: 0, videoId: "b8k_h7J9g8A", title: "Lolipop Lagelu (Bhojpuri Phonk)", artist: "Pawan Singh × Desi Phonk", poster: "/assets/poster-highway-night.jpg" },
-  { id: 1, videoId: "9bZkp7q19f0", title: "Katta Bass Drift", artist: "Bhojpuri Hard Phonk", poster: "/assets/poster-dhaba-break.jpg" },
-  { id: 2, videoId: "kJQP7kiw5Fk", title: "Raja Ji Phonk (Ultra Bass)", artist: "Bihar Phonk Club", poster: "/assets/poster-monsoon-phonk.jpg" },
-  { id: 3, videoId: "fJ9rUzIMcZQ", title: "Patna Bypass Hard Bass", artist: "Hajipur Phonk Beats", poster: "/assets/poster-mela-crowd.jpg" },
-  { id: 4, videoId: "3tmd-ClpJxA", title: "Overloaded Highway Rush", artist: "Muzaffarpur Drift", poster: "/assets/poster-overloaded-rush.jpg" },
-  { id: 5, videoId: "L_LUpnjgPso", title: "Buri Nazar Phonk", artist: "Desi Bass Boosted", poster: "/assets/poster-highway-night.jpg" },
-  { id: 6, videoId: "OPf0YbXqDm0", title: "Dhaba Night Phonk", artist: "Bihar Highway Beats", poster: "/assets/poster-dhaba-break.jpg" },
-  { id: 7, videoId: "YQHsXMglC9A", title: "Bhojpuri Hard Bass Phonk", artist: "Tempu Beats", poster: "/assets/poster-monsoon-phonk.jpg" }
+  { id: 0, videoId: "rs-vlTfVDYs", title: "Bhojpuri Phonk (Official Track)", artist: "Tempu Beats × Phonk", poster: "/assets/poster-highway-night.jpg" },
+  { id: 1, videoId: "b8k_h7J9g8A", title: "Lolipop Lagelu (Bhojpuri Phonk)", artist: "Pawan Singh × Desi Phonk", poster: "/assets/poster-dhaba-break.jpg" },
+  { id: 2, videoId: "9bZkp7q19f0", title: "Katta Bass Drift", artist: "Bhojpuri Hard Phonk", poster: "/assets/poster-monsoon-phonk.jpg" },
+  { id: 3, videoId: "kJQP7kiw5Fk", title: "Raja Ji Phonk (Ultra Bass)", artist: "Bihar Phonk Club", poster: "/assets/poster-mela-crowd.jpg" },
+  { id: 4, videoId: "fJ9rUzIMcZQ", title: "Patna Bypass Hard Bass", artist: "Hajipur Phonk Beats", poster: "/assets/poster-overloaded-rush.jpg" },
+  { id: 5, videoId: "3tmd-ClpJxA", title: "Overloaded Highway Rush", artist: "Muzaffarpur Drift", poster: "/assets/poster-highway-night.jpg" }
 ];
 
 const HIGHWAY_SLOGANS = [
@@ -399,9 +397,8 @@ function createPlayer() {
     ytPlayer = new window.YT.Player('youtube-embed', {
       height: '100%',
       width: '100%',
+      videoId: 'rs-vlTfVDYs',
       playerVars: {
-        listType: 'playlist',
-        list: 'PLSQDgs2rRTeY',
         autoplay: 0,
         controls: 1,
         rel: 0,
