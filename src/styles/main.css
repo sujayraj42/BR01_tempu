@@ -214,6 +214,100 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   box-shadow: var(--glow-cyan);
 }
 
+.btn-screenoff-pill {
+  background: rgba(147, 51, 234, 0.25);
+  border: 1px solid #A855F7;
+  color: #E9D5FF;
+}
+
+.btn-screenoff-pill:hover {
+  background: #9333EA;
+  color: #FFFFFF;
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+}
+
+/* -------------------------------------------------------------
+   SCREEN OFF BATTERY SAVER OVERLAY
+   ------------------------------------------------------------- */
+.screen-off-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000000;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.screen-off-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.screen-off-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  text-align: center;
+  padding: 2rem;
+  opacity: 0.25;
+  transition: opacity 0.3s ease;
+}
+
+.screen-off-overlay:hover .screen-off-content,
+.screen-off-overlay:active .screen-off-content {
+  opacity: 0.9;
+}
+
+.screen-off-icon {
+  font-size: 3.5rem;
+  filter: drop-shadow(0 0 20px #A855F7);
+  animation: pulse-live 3s infinite;
+}
+
+.screen-off-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--color-hazard-yellow);
+  letter-spacing: 3px;
+}
+
+.screen-off-sub {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  max-width: 320px;
+}
+
+.btn-wake-screen {
+  background: rgba(255, 200, 0, 0.15);
+  border: 1px solid var(--color-hazard-yellow);
+  color: var(--color-hazard-yellow);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.6rem 1.4rem;
+  border-radius: 50px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.btn-wake-screen:hover {
+  background: var(--color-hazard-yellow);
+  color: #000000;
+  box-shadow: var(--glow-yellow);
+}
+
 /* -------------------------------------------------------------
    HERO HEADLINE & INTERACTIVE SHAYARI CARD
    ------------------------------------------------------------- */

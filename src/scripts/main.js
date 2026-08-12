@@ -356,6 +356,8 @@ function updateTrackUIFromYouTube() {
     if (titleEl) titleEl.textContent = data.title;
     if (artistEl) artistEl.textContent = data.author || "Bhojpuri Phonk Radio";
 
+    updateMediaSessionMetadata(data.title, data.author || "Bhojpuri Phonk Radio");
+
     if (typeof ytPlayer.getPlaylistIndex === 'function') {
       const idx = ytPlayer.getPlaylistIndex();
       if (idx !== undefined && idx >= 0) {
@@ -364,6 +366,61 @@ function updateTrackUIFromYouTube() {
     }
   }
 }
+
+let isScreenOff = false;
+
+// -------------------------------------------------------------
+// SCREEN OFF BATTERY SAVER MODE
+// -------------------------------------------------------------
+export function toggleScreenOff(state = null) {
+  const overlay = document.getElementById('screenOffOverlay');
+  if (!overlay) return;
+
+  if (state !== null) {
+    isScreenOff = state;
+  } else {
+    isScreenOff = !isScreenOff;
+  }
+
+  overlay.classList.toggle('active', isScreenOff);
+
+  if (isScreenOff) {
+    showToast("🌙 Screen Off Active • Audio playing in background");
+  } else {
+    showToast("☀️ Screen Woken Up!");
+  }
+}
+
+// -------------------------------------------------------------
+// HTML5 MEDIA SESSION API (BACKGROUND LOCKSCREEN PLAYBACK)
+// -------------------------------------------------------------
+function initMediaSession() {
+  if ('mediaSession' in navigator) {
+    try {
+      navigator.mediaSession.setActionHandler('play', () => togglePlayPause());
+      navigator.mediaSession.setActionHandler('pause', () => togglePlayPause());
+      navigator.mediaSession.setActionHandler('previoustrack', () => prevTrack());
+      navigator.mediaSession.setActionHandler('nexttrack', () => nextTrack());
+    } catch (e) {}
+  }
+}
+
+function updateMediaSessionMetadata(title, artist) {
+  if ('mediaSession' in navigator && window.MediaMetadata) {
+    try {
+      navigator.mediaSession.metadata = new window.MediaMetadata({
+        title: title || 'Tempu Wala Radio',
+        artist: artist || 'Hard Bhojpuri Phonk',
+        album: 'Tempu Phonk Beats',
+        artwork: [
+          { src: '/assets/poster-highway-night.jpg', sizes: '512x512', type: 'image/jpeg' }
+        ]
+      });
+    } catch (e) {}
+  }
+}
+
+
 
 function onPlayerReady() {
   isPlayerReady = true;
@@ -495,6 +552,8 @@ function handleKeyboardShortcuts(e) {
     cyclePosterMood();
   } else if (key === 'l') {
     togglePlayerDrawer();
+  } else if (key === 's') {
+    toggleScreenOff();
   } else if (key === 'e') {
     cycleBassPreset();
   } else if (key === 'q') {
@@ -524,6 +583,18 @@ export function showToast(msg) {
 // -------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
   initVisualizer();
+  initMediaSession();
+
+  const btnScreenOff = document.getElementById('btnScreenOff');
+  const screenOffOverlay = document.getElementById('screenOffOverlay');
+  const btnWakeScreen = document.getElementById('btnWakeScreen');
+
+  if (btnScreenOff) btnScreenOff.addEventListener('click', () => toggleScreenOff(true));
+  if (screenOffOverlay) screenOffOverlay.addEventListener('click', () => toggleScreenOff(false));
+  if (btnWakeScreen) btnWakeScreen.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleScreenOff(false);
+  });
 
   const playPauseBtn = document.getElementById('btnPlayPause');
   if (playPauseBtn) playPauseBtn.addEventListener('click', togglePlayPause);

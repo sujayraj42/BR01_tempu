@@ -79,6 +79,7 @@
 
     <!-- Top-Right: Controls & Spotify -->
     <nav class="top-nav-links" aria-label="Main Navigation">
+      <button id="btnScreenOff" class="nav-pill-btn btn-screenoff-pill" aria-label="Toggle Screen Off Mode" title="Screen Off Battery Saver (S)">🌙 SCREEN OFF</button>
       <button id="btnBassPreset" class="nav-pill-btn btn-bass-preset" aria-label="Toggle Equalizer Preset" title="Cycle Bass Preset (E)">⚡ BASS: OVERDRIVE</button>
       <button id="btnSceneCycle" class="nav-pill-btn" aria-label="Cycle Background Scene Mood" title="Switch Poster Art (M)">🖼 POSTERS</button>
       <button id="btnPlaylistToggle" class="nav-pill-btn btn-playlist-pill" aria-label="Toggle Track Playlist" title="Open Playlist (L)">🎵 TRACKS</button>
@@ -209,6 +210,16 @@
   <!-- SLIDE-OUT YOUTUBE PLAYER DRAWER -->
   <div id="playerDrawer" class="player-drawer">
     <div id="youtube-embed"></div>
+  </div>
+
+  <!-- SCREEN OFF BATTERY SAVER OVERLAY -->
+  <div id="screenOffOverlay" class="screen-off-overlay" role="dialog" aria-label="Screen Off Battery Saver">
+    <div class="screen-off-content">
+      <span class="screen-off-icon">🌙</span>
+      <h2 class="screen-off-title">TEMPU WALA STREAMING</h2>
+      <p class="screen-off-sub">Screen turned off to save battery • Audio playing in background</p>
+      <button id="btnWakeScreen" class="btn-wake-screen">☀️ TAP ANYWHERE TO WAKE</button>
+    </div>
   </div>
 
   <!-- Toast Notification -->
