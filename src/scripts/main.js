@@ -568,7 +568,16 @@ export function toggleKbModal() {
   if (modal) modal.classList.toggle('open');
 }
 
+export function triggerHaptic(ms = 20) {
+  if ('vibrate' in navigator) {
+    try {
+      navigator.vibrate(ms);
+    } catch (e) {}
+  }
+}
+
 export function showToast(msg) {
+  triggerHaptic(15);
   const toast = document.getElementById('toastMsg');
   if (!toast) return;
   toast.textContent = msg;
