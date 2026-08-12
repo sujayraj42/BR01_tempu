@@ -431,7 +431,29 @@ function onPlayerStateChange(event) {
     isPlaying = true;
     if (playPauseBtn) playPauseBtn.innerHTML = '❚❚';
     if (eqBars) eqBars.classList.add('playing');
-    showToast("▶ TEMPU PHONK PLAYING!");
+
+    // Dynamically retrieve actual playing video title & author from YouTube playlist
+    if (ytPlayer && typeof ytPlayer.getVideoData === 'function') {
+      const data = ytPlayer.getVideoData();
+      if (data && data.title) {
+        const titleEl = document.getElementById('trackTitle');
+        const artistEl = document.getElementById('trackArtist');
+        if (titleEl) titleEl.textContent = data.title;
+        if (artistEl) artistEl.textContent = data.author || "Bhojpuri Phonk Radio";
+
+        // Sync active playlist index if available from YouTube
+        if (typeof ytPlayer.getPlaylistIndex === 'function') {
+          const idx = ytPlayer.getPlaylistIndex();
+          if (idx !== undefined && idx >= 0) {
+            currentTrackIndex = idx % PLAYLIST_TRACKS.length;
+            cyclePosterMood(currentTrackIndex % SCENE_POSTERS.length);
+            renderPlaylistGrid();
+          }
+        }
+      }
+    }
+
+    showToast("▶ PLAYING PLAYLIST TRACK!");
     startProgressTracker();
   } else if (event.data === window.YT.PlayerState.PAUSED || event.data === window.YT.PlayerState.ENDED) {
     isPlaying = false;
@@ -443,7 +465,7 @@ function onPlayerStateChange(event) {
 
 export function togglePlayPause() {
   if (!isPlayerReady || !ytPlayer) {
-    showToast("▶ Loading Audio Stream...");
+    showToast("▶ Loading Playlist Stream...");
     initYouTubeAPI();
     return;
   }
@@ -456,13 +478,21 @@ export function togglePlayPause() {
 }
 
 export function nextTrack() {
-  currentTrackIndex = (currentTrackIndex + 1) % PLAYLIST_TRACKS.length;
-  window.selectTrack(currentTrackIndex);
+  if (ytPlayer && typeof ytPlayer.nextVideo === 'function') {
+    ytPlayer.nextVideo();
+  } else {
+    currentTrackIndex = (currentTrackIndex + 1) % PLAYLIST_TRACKS.length;
+    window.selectTrack(currentTrackIndex);
+  }
 }
 
 export function prevTrack() {
-  currentTrackIndex = (currentTrackIndex - 1 + PLAYLIST_TRACKS.length) % PLAYLIST_TRACKS.length;
-  window.selectTrack(currentTrackIndex);
+  if (ytPlayer && typeof ytPlayer.previousVideo === 'function') {
+    ytPlayer.previousVideo();
+  } else {
+    currentTrackIndex = (currentTrackIndex - 1 + PLAYLIST_TRACKS.length) % PLAYLIST_TRACKS.length;
+    window.selectTrack(currentTrackIndex);
+  }
 }
 
 export function toggleMute() {
