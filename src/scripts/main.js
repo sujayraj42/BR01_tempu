@@ -1,6 +1,6 @@
 // -------------------------------------------------------------
 // TEMPU WALA — HARD BHOJPURI PHONK RADIO ENGINE
-// High-Impact Poster Art Visuals & Interactive Audio Visualizer
+// YouTube Playlist Integration & Atmospheric Visuals
 // -------------------------------------------------------------
 
 const SCENE_POSTERS = [
@@ -9,15 +9,6 @@ const SCENE_POSTERS = [
   { id: 'monsoon-phonk', name: 'Monsoon Rain Drift', image: '/assets/poster-monsoon-phonk.jpg', color: '#00FF66' },
   { id: 'mela-crowd', name: 'Mela Bass Festival', image: '/assets/poster-mela-crowd.jpg', color: '#FF2A6D' },
   { id: 'overloaded-rush', name: 'Overloaded Highway', image: '/assets/poster-overloaded-rush.jpg', color: '#FFAA00' }
-];
-
-const PLAYLIST_TRACKS = [
-  { id: 0, videoId: "rs-vlTfVDYs", title: "Bhojpuri Phonk (Official Track)", artist: "Tempu Beats × Phonk", poster: "/assets/poster-highway-night.jpg" },
-  { id: 1, videoId: "b8k_h7J9g8A", title: "Lolipop Lagelu (Bhojpuri Phonk)", artist: "Pawan Singh × Desi Phonk", poster: "/assets/poster-dhaba-break.jpg" },
-  { id: 2, videoId: "9bZkp7q19f0", title: "Katta Bass Drift", artist: "Bhojpuri Hard Phonk", poster: "/assets/poster-monsoon-phonk.jpg" },
-  { id: 3, videoId: "kJQP7kiw5Fk", title: "Raja Ji Phonk (Ultra Bass)", artist: "Bihar Phonk Club", poster: "/assets/poster-mela-crowd.jpg" },
-  { id: 4, videoId: "fJ9rUzIMcZQ", title: "Patna Bypass Hard Bass", artist: "Hajipur Phonk Beats", poster: "/assets/poster-overloaded-rush.jpg" },
-  { id: 5, videoId: "3tmd-ClpJxA", title: "Overloaded Highway Rush", artist: "Muzaffarpur Drift", poster: "/assets/poster-highway-night.jpg" }
 ];
 
 const HIGHWAY_SLOGANS = [
@@ -51,7 +42,6 @@ const BASS_PRESETS = [
 ];
 
 let currentPosterIndex = 0;
-let currentTrackIndex = 0;
 let currentPresetIndex = 0;
 let currentSloganIndex = 0;
 let isPlaying = false;
@@ -112,7 +102,6 @@ function initVisualizer() {
   resizeVisualizer();
   window.addEventListener('resize', resizeVisualizer);
 
-  // Generate glowing floating audio particles
   audioParticles = [];
   for (let i = 0; i < 45; i++) {
     audioParticles.push({
@@ -145,7 +134,6 @@ function renderVisualizerLoop() {
   const numBars = Math.floor(W / 18);
   const bassAmp = isPlaying ? (1.5 + BASS_PRESETS[currentPresetIndex].level * 1.2) : 0.4;
 
-  // 1. Draw Bouncing Frequency Spectrum Bars
   for (let i = 0; i < numBars; i++) {
     const x = i * 18 + 4;
     const freqVal = Math.sin(visFrame * 0.08 + i * 0.3) * Math.cos(visFrame * 0.05 + i * 0.15);
@@ -162,7 +150,6 @@ function renderVisualizerLoop() {
     visCtx.fill();
   }
 
-  // 2. Draw Floating Neon Sparks/Particles
   audioParticles.forEach(p => {
     p.y -= isPlaying ? p.speedY * 1.5 : p.speedY * 0.5;
     if (p.y < H - 200) {
@@ -178,7 +165,6 @@ function renderVisualizerLoop() {
   });
   visCtx.globalAlpha = 1.0;
 
-  // 3. Glowing Bottom Horizon Sine Wave
   visCtx.strokeStyle = "rgba(0, 240, 255, 0.45)";
   visCtx.lineWidth = 2;
   visCtx.beginPath();
@@ -193,63 +179,11 @@ function renderVisualizerLoop() {
 }
 
 // -------------------------------------------------------------
-// PLAYLIST DRAWER & TRACK SELECTION
+// YOUTUBE PLAYLIST DRAWER TOGGLE
 // -------------------------------------------------------------
-function renderPlaylistGrid() {
-  const grid = document.getElementById('playlistGrid');
-  if (!grid) return;
-
-  grid.innerHTML = PLAYLIST_TRACKS.map((track, i) => `
-    <div class="playlist-card ${i === currentTrackIndex ? 'active' : ''}" onclick="selectTrack(${i})">
-      <img class="playlist-card-img" src="${track.poster}" alt="${track.title}" />
-      <div class="playlist-card-info">
-        <span class="playlist-card-title">${track.title}</span>
-        <span class="playlist-card-artist">${track.artist}</span>
-      </div>
-    </div>
-  `).join('');
-}
-
-window.selectTrack = function(index) {
-  currentTrackIndex = index % PLAYLIST_TRACKS.length;
-  const track = PLAYLIST_TRACKS[currentTrackIndex];
-
-  // Update UI Elements
-  const titleEl = document.getElementById('trackTitle');
-  const artistEl = document.getElementById('trackArtist');
-  const thumbEl = document.getElementById('playerThumb');
-
-  if (titleEl) titleEl.textContent = track.title;
-  if (artistEl) artistEl.textContent = track.artist;
-  if (thumbEl) thumbEl.src = track.poster;
-
-  // Switch poster background
-  cyclePosterMood(currentTrackIndex % SCENE_POSTERS.length);
-
-  // Play YouTube Track if player exists
-  if (ytPlayer) {
-    if (track.videoId && typeof ytPlayer.loadVideoById === 'function') {
-      ytPlayer.loadVideoById(track.videoId);
-    } else if (typeof ytPlayer.playVideoAt === 'function') {
-      ytPlayer.playVideoAt(currentTrackIndex);
-    }
-  } else {
-    initYouTubeAPI();
-  }
-
-  renderPlaylistGrid();
-  togglePlaylistDrawer(false);
-  showToast(`🎵 Playing: ${track.title}`);
-};
-
-export function togglePlaylistDrawer(forceState = null) {
-  const drawer = document.getElementById('playlistDrawer');
-  if (!drawer) return;
-  if (forceState !== null) {
-    drawer.classList.toggle('open', forceState);
-  } else {
-    drawer.classList.toggle('open');
-  }
+export function togglePlayerDrawer() {
+  const drawer = document.getElementById('playerDrawer');
+  if (drawer) drawer.classList.toggle('open');
 }
 
 // -------------------------------------------------------------
@@ -351,7 +285,6 @@ export function triggerHornSound() {
     osc2.stop(now + 0.45);
   } catch (e) {}
 
-  // Screen pulse flash
   document.body.classList.add('horn-flash');
   setTimeout(() => document.body.classList.remove('horn-flash'), 300);
 
@@ -371,7 +304,7 @@ export function cycleBassPreset() {
 }
 
 // -------------------------------------------------------------
-// YOUTUBE PLAYER API INTEGRATION
+// DIRECT YOUTUBE PLAYLIST IFRAME ENGINE
 // -------------------------------------------------------------
 function initYouTubeAPI() {
   if (!window.YT) {
@@ -397,8 +330,9 @@ function createPlayer() {
     ytPlayer = new window.YT.Player('youtube-embed', {
       height: '100%',
       width: '100%',
-      videoId: 'rs-vlTfVDYs',
       playerVars: {
+        listType: 'playlist',
+        list: 'PLSQDgs2rRTeY',
         autoplay: 0,
         controls: 1,
         rel: 0,
@@ -413,8 +347,27 @@ function createPlayer() {
   } catch (err) {}
 }
 
+function updateTrackUIFromYouTube() {
+  if (!ytPlayer || typeof ytPlayer.getVideoData !== 'function') return;
+  const data = ytPlayer.getVideoData();
+  if (data && data.title) {
+    const titleEl = document.getElementById('trackTitle');
+    const artistEl = document.getElementById('trackArtist');
+    if (titleEl) titleEl.textContent = data.title;
+    if (artistEl) artistEl.textContent = data.author || "Bhojpuri Phonk Radio";
+
+    if (typeof ytPlayer.getPlaylistIndex === 'function') {
+      const idx = ytPlayer.getPlaylistIndex();
+      if (idx !== undefined && idx >= 0) {
+        cyclePosterMood(idx % SCENE_POSTERS.length);
+      }
+    }
+  }
+}
+
 function onPlayerReady() {
   isPlayerReady = true;
+  updateTrackUIFromYouTube();
   if (ytPlayer && typeof ytPlayer.pauseVideo === 'function') {
     ytPlayer.pauseVideo();
   }
@@ -429,28 +382,8 @@ function onPlayerStateChange(event) {
     if (playPauseBtn) playPauseBtn.innerHTML = '❚❚';
     if (eqBars) eqBars.classList.add('playing');
 
-    // Dynamically retrieve actual playing video title & author from YouTube playlist
-    if (ytPlayer && typeof ytPlayer.getVideoData === 'function') {
-      const data = ytPlayer.getVideoData();
-      if (data && data.title) {
-        const titleEl = document.getElementById('trackTitle');
-        const artistEl = document.getElementById('trackArtist');
-        if (titleEl) titleEl.textContent = data.title;
-        if (artistEl) artistEl.textContent = data.author || "Bhojpuri Phonk Radio";
-
-        // Sync active playlist index if available from YouTube
-        if (typeof ytPlayer.getPlaylistIndex === 'function') {
-          const idx = ytPlayer.getPlaylistIndex();
-          if (idx !== undefined && idx >= 0) {
-            currentTrackIndex = idx % PLAYLIST_TRACKS.length;
-            cyclePosterMood(currentTrackIndex % SCENE_POSTERS.length);
-            renderPlaylistGrid();
-          }
-        }
-      }
-    }
-
-    showToast("▶ PLAYING PLAYLIST TRACK!");
+    updateTrackUIFromYouTube();
+    showToast("▶ PLAYING YOUTUBE PLAYLIST!");
     startProgressTracker();
   } else if (event.data === window.YT.PlayerState.PAUSED || event.data === window.YT.PlayerState.ENDED) {
     isPlaying = false;
@@ -462,7 +395,7 @@ function onPlayerStateChange(event) {
 
 export function togglePlayPause() {
   if (!isPlayerReady || !ytPlayer) {
-    showToast("▶ Loading Playlist Stream...");
+    showToast("▶ Loading YouTube Playlist...");
     initYouTubeAPI();
     return;
   }
@@ -477,18 +410,12 @@ export function togglePlayPause() {
 export function nextTrack() {
   if (ytPlayer && typeof ytPlayer.nextVideo === 'function') {
     ytPlayer.nextVideo();
-  } else {
-    currentTrackIndex = (currentTrackIndex + 1) % PLAYLIST_TRACKS.length;
-    window.selectTrack(currentTrackIndex);
   }
 }
 
 export function prevTrack() {
   if (ytPlayer && typeof ytPlayer.previousVideo === 'function') {
     ytPlayer.previousVideo();
-  } else {
-    currentTrackIndex = (currentTrackIndex - 1 + PLAYLIST_TRACKS.length) % PLAYLIST_TRACKS.length;
-    window.selectTrack(currentTrackIndex);
   }
 }
 
@@ -567,7 +494,7 @@ function handleKeyboardShortcuts(e) {
   } else if (key === 'm') {
     cyclePosterMood();
   } else if (key === 'l') {
-    togglePlaylistDrawer();
+    togglePlayerDrawer();
   } else if (key === 'e') {
     cycleBassPreset();
   } else if (key === 'q') {
@@ -596,13 +523,8 @@ export function showToast(msg) {
 // INITIALIZATION
 // -------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize Neon Visualizer
   initVisualizer();
 
-  // Render Track Playlist Cards
-  renderPlaylistGrid();
-
-  // Bind Event Listeners
   const playPauseBtn = document.getElementById('btnPlayPause');
   if (playPauseBtn) playPauseBtn.addEventListener('click', togglePlayPause);
 
@@ -619,12 +541,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (sceneBtn) sceneBtn.addEventListener('click', () => cyclePosterMood());
 
   const playlistBtn = document.getElementById('btnPlaylistToggle');
-  const playlistClose = document.getElementById('playlistClose');
   const playerTrackInfo = document.getElementById('playerTrackInfo');
-
-  if (playlistBtn) playlistBtn.addEventListener('click', () => togglePlaylistDrawer());
-  if (playlistClose) playlistClose.addEventListener('click', () => togglePlaylistDrawer(false));
-  if (playerTrackInfo) playerTrackInfo.addEventListener('click', () => togglePlaylistDrawer());
+  if (playlistBtn) playlistBtn.addEventListener('click', togglePlayerDrawer);
+  if (playerTrackInfo) playerTrackInfo.addEventListener('click', togglePlayerDrawer);
 
   const bassPresetBtn = document.getElementById('btnBassPreset');
   if (bassPresetBtn) bassPresetBtn.addEventListener('click', cycleBassPreset);
@@ -653,12 +572,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const toggleFrameBtn = document.getElementById('btnToggleFrame');
-  const playerDrawer = document.getElementById('playerDrawer');
-  if (toggleFrameBtn && playerDrawer) {
-    toggleFrameBtn.addEventListener('click', () => {
-      playerDrawer.classList.toggle('open');
-    });
-  }
+  if (toggleFrameBtn) toggleFrameBtn.addEventListener('click', togglePlayerDrawer);
 
   const kbBadge = document.getElementById('kbBadge');
   const kbModalClose = document.getElementById('kbModalClose');
