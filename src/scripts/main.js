@@ -12,11 +12,14 @@ const SCENE_POSTERS = [
 ];
 
 const PLAYLIST_TRACKS = [
-  { id: 0, title: "Katta Bass Phonk", artist: "Tempu Beats × Phonk", poster: "/assets/poster-highway-night.jpg" },
-  { id: 1, title: "Dhaba Night Drift", artist: "Bihar Highway Phonk", poster: "/assets/poster-dhaba-break.jpg" },
-  { id: 2, title: "Monsoon Patna Drift", artist: "Desi Phonk Club", poster: "/assets/poster-monsoon-phonk.jpg" },
-  { id: 3, title: "Mela Hard Bass", artist: "Hajipur Beats", poster: "/assets/poster-mela-crowd.jpg" },
-  { id: 4, title: "Overloaded Highway Rush", artist: "Muzaffarpur Drift", poster: "/assets/poster-overloaded-rush.jpg" }
+  { id: 0, videoId: "b8k_h7J9g8A", title: "Lolipop Lagelu (Bhojpuri Phonk)", artist: "Pawan Singh × Desi Phonk", poster: "/assets/poster-highway-night.jpg" },
+  { id: 1, videoId: "9bZkp7q19f0", title: "Katta Bass Drift", artist: "Bhojpuri Hard Phonk", poster: "/assets/poster-dhaba-break.jpg" },
+  { id: 2, videoId: "kJQP7kiw5Fk", title: "Raja Ji Phonk (Ultra Bass)", artist: "Bihar Phonk Club", poster: "/assets/poster-monsoon-phonk.jpg" },
+  { id: 3, videoId: "fJ9rUzIMcZQ", title: "Patna Bypass Hard Bass", artist: "Hajipur Phonk Beats", poster: "/assets/poster-mela-crowd.jpg" },
+  { id: 4, videoId: "3tmd-ClpJxA", title: "Overloaded Highway Rush", artist: "Muzaffarpur Drift", poster: "/assets/poster-overloaded-rush.jpg" },
+  { id: 5, videoId: "L_LUpnjgPso", title: "Buri Nazar Phonk", artist: "Desi Bass Boosted", poster: "/assets/poster-highway-night.jpg" },
+  { id: 6, videoId: "OPf0YbXqDm0", title: "Dhaba Night Phonk", artist: "Bihar Highway Beats", poster: "/assets/poster-dhaba-break.jpg" },
+  { id: 7, videoId: "YQHsXMglC9A", title: "Bhojpuri Hard Bass Phonk", artist: "Tempu Beats", poster: "/assets/poster-monsoon-phonk.jpg" }
 ];
 
 const HIGHWAY_SLOGANS = [
@@ -210,8 +213,8 @@ function renderPlaylistGrid() {
 }
 
 window.selectTrack = function(index) {
-  currentTrackIndex = index;
-  const track = PLAYLIST_TRACKS[index];
+  currentTrackIndex = index % PLAYLIST_TRACKS.length;
+  const track = PLAYLIST_TRACKS[currentTrackIndex];
 
   // Update UI Elements
   const titleEl = document.getElementById('trackTitle');
@@ -223,11 +226,17 @@ window.selectTrack = function(index) {
   if (thumbEl) thumbEl.src = track.poster;
 
   // Switch poster background
-  cyclePosterMood(index);
+  cyclePosterMood(currentTrackIndex % SCENE_POSTERS.length);
 
   // Play YouTube Track if player exists
-  if (ytPlayer && typeof ytPlayer.playVideoAt === 'function') {
-    ytPlayer.playVideoAt(index);
+  if (ytPlayer) {
+    if (track.videoId && typeof ytPlayer.loadVideoById === 'function') {
+      ytPlayer.loadVideoById(track.videoId);
+    } else if (typeof ytPlayer.playVideoAt === 'function') {
+      ytPlayer.playVideoAt(currentTrackIndex);
+    }
+  } else {
+    initYouTubeAPI();
   }
 
   renderPlaylistGrid();
